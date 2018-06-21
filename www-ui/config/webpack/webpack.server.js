@@ -1,6 +1,9 @@
-﻿var webpack = require('webpack');
-var helpers = require('./helpers');
+var webpack = require('webpack');
+var buildPath = require('./build-path').buildPath;
 var fs = require('fs');
+
+const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
+const CONFIG = require('./load-config').CONFIG;
 
 var nodeModules = {};
 fs.readdirSync('node_modules')
@@ -13,7 +16,7 @@ fs.readdirSync('node_modules')
 
 module.exports = {
   entry: {
-    'server': helpers.buildPathFromRoot('src', 'server.ts')
+    'server': buildPath('src', 'server.ts')
   },
 
   target: 'node',
@@ -23,7 +26,7 @@ module.exports = {
   },
 
   output: {
-    path: helpers.buildPathFromRoot('dist'),
+    path: buildPath('dist'),
     filename: '[name].js',
     chunkFilename: '[id].[hash].chunk.js',
     libraryTarget: 'commonjs'
@@ -31,34 +34,28 @@ module.exports = {
 
   externals: nodeModules,
 
-  devtool: '#sourcemap',
+  devtool: 'sourcemap',
 
   resolve: {
-    extensions: ['.js', '.ts']
+    extensions: ['', '.js', '.ts']
   },
 
   module: {
-    rules: [
+    loaders: [
       {
         test: /\.ts$/,
-        use: ['awesome-typescript-loader']
+        loaders: ['awesome-typescript-loader']
       }
     ]
   },
 
   plugins: [
-    new webpack.BannerPlugin({
-      banner: 'require("source-map-support").install();',
-      raw: true,
-      entryOnly: false
-    }),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      comments: false,
-      compress: {
-        warnings: true
-      }
+    new webpack.NoErrorsPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.ENV': JSON.stringify(ENV),
+      'process.env.PORT': JSON.stringify(CONFIG.port)
     })
   ]
 }

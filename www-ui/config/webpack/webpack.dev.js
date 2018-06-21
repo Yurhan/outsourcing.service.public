@@ -1,38 +1,27 @@
-﻿var webpack = require('webpack');
 var webpackMerge = require('webpack-merge');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var commonConfig = require('./webpack.common.js');
-var helpers = require('./helpers');
 
-const CONFIG = require('./load-config').CONFIG;
+const path = require('path');
+const rootDir = path.resolve(__dirname, '..', '..');
 
 module.exports = webpackMerge(commonConfig, {
-  devtool: '#cheap-module-eval-source-map',
 
-  entry: {
-    'vendor': helpers.buildPathFromRoot('src', 'vendor.ts'),
-    'app': [
-      `webpack-dev-server/client?http://localhost:${CONFIG.port}/`,
-      'webpack/hot/dev-server',
-      helpers.buildPathFromRoot('src', 'client.ts')]
-  },
+  devtool: 'cheap-module-eval-source-map',
 
   output: {
-    path: helpers.buildPathFromRoot('dist'),
+    path: path.resolve(rootDir, 'dist'),
     publicPath: '/static/',
-    filename: '[name].bundle.js',
+    filename: '[name].js',
     chunkFilename: '[id].chunk.js'
   },
 
   plugins: [
-    new ExtractTextPlugin({
-      filename: '[name].css',
-      allChunks: true
-    }),
-    new webpack.DefinePlugin({
-      IS_RELEASE_BUILD: JSON.stringify(false)
-    }),
-    //hot module support
-    new webpack.HotModuleReplacementPlugin()
-  ]
+    new ExtractTextPlugin('[name].css')
+  ],
+
+  devServer: {
+    historyApiFallback: true,
+    stats: 'minimal'
+  }
 });

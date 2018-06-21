@@ -50,18 +50,17 @@
     <page-layout id="contacts" class="contacts-conteiner" title="КОНТАКТИ">
       <div>
         <div>
-          <agm-map [latitude]="lat" [longitude]="lng">
-            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-          </agm-map>
         </div>
         <div class="text-container">
           <span class="text-title">Питання</span>
           <span class="text">Забудьякими питанями просимо звертатись sdfasdf asdfasdf adsfasdf adsfasd
             fafasdf asdfaf телефоном 8009789797.</span>
         </div>
-        <div class="text-container">
+        <div *ngIf="contact" class="text-container">
           <span class="text-title">Головний Офіс</span>
-          <span class="text">м. Львів вул. Дорошенка 50</span>
+          <span *ngIf="contact.address" class="text">Адреса: м. {{contact.address.city}}, вул. {{contact.address.street}}</span>
+          <span *ngIf="contact.primaryPhone" class="text">Тел. {{contact.primaryPhone}}</span>
+          <span *ngIf="showMobPhones()" class="text">Моб. {{formatPhoneNumbers(contact.mobPhones)}}</span>
         </div>
       </div>
     </page-layout>
