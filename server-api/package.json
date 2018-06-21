@@ -1,13 +1,13 @@
 {
-  "name": "@type/medical-tool-server-api",
+  "name": "@type/outsourcing.service.public",
   "version": "0.0.1",
-  "description": "medical-tool-server-api",
+  "description": "outsourcing.service.public",
   "author": {
-    "name": "LvivCode"
+    "name": "Yurij"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/LvivCode/medical-tool.git"
+    "url": "https://github.com/andrusyshyny/outsourcing.service.public"
   },
   "files": [
     "src/models"
