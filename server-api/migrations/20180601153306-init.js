@@ -22,25 +22,25 @@ const sqlUp = `
 
   CREATE TABLE companyInfo (
     "id"        SERIAL PRIMARY KEY,
-    title       varchar(40) NOT NULL,
+    title       varchar(256) NOT NULL,
     subTitle  varchar(256) NULL
   );
 
   CREATE TABLE companyPartner (
     "id"        SERIAL PRIMARY KEY,
-    name       varchar(40) NOT NULL,
+    name       varchar(256) NOT NULL,
     description  varchar(256) NULL
   );
 
   CREATE TABLE companyServices (
     "id"        SERIAL PRIMARY KEY,
-    name       varchar(40) NOT NULL,
+    name       varchar(256) NOT NULL,
     description  varchar(256) NULL
   );
 
   CREATE TABLE jobVacancy (
     "id"        SERIAL PRIMARY KEY,
-    name       varchar(40) NOT NULL,
+    name       varchar(256) NOT NULL,
     description  varchar(256) NULL,
     gender varchar(5) NOT NULL
   );
