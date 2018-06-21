@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { WidgetsModule } from './widgets';
+
 // import { AgmCoreModule } from '@agm/core';
 
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,7 +26,8 @@ import {
   CompanyPartnerService,
   CompanyServicesService,
   JobVacancyService,
-  UserService
+  UserService,
+  GoogleMapService
 } from '../services/apis';
 
 @NgModule({
@@ -49,6 +51,7 @@ import {
     CompanyServicesService,
     JobVacancyService,
     UserService,
+    GoogleMapService,
     DateTimeHelperService,
     {
       provide: Http,

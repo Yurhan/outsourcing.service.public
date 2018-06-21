@@ -1,0 +1,22 @@
+.title-container {
+  text-align: center;
+  .title {
+    color: #C6C6C6;
+    letter-spacing: 0.05em;
+    font: normal normal normal 55px/1.4em avenir-lt-w01_85-heavy1475544,sans-serif;
+    margin: 10px auto;
+  }
+  .separate-line {
+    border-bottom: 10px solid rgba(237, 205, 31, 1);
+    height: 0 !important;
+    min-height: 0 !important;
+    display: block;
+    width: 150px;
+    margin: 0 auto;
+  }
+}
+
+.main-conteiner{
+  text-align: center;
+  min-height: 500px;
+}

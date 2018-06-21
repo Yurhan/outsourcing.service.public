@@ -7,3 +7,6 @@ export * from './job-vacancy/job-vacancy.service';
 
 export * from './user/user.service';
 export * from './user/user.service.d';
+
+export * from './goolge-map/google-map.service';
+export * from './goolge-map/google-map.service.d';

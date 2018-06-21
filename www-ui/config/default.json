@@ -1,4 +1,5 @@
 {
   "port": 1401,
-  "proxyPort": 1480
+  "proxyPort": 1480,
+  "googleMapApiKey": "AIzaSyAQQjJp3kcqy5N-MLdmPvPJBHvUa0jtncE"
 }

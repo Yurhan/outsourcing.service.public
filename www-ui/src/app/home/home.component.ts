@@ -27,7 +27,6 @@ export class HomeComponent implements AfterViewInit {
   public companyInfo: ICompanyDetailedInfo;
   private routeSub: Subscription;
 
-
   constructor(
     private comapnyInfoApi: CompanyInfoService,
     private route: ActivatedRoute,
