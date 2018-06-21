@@ -22,7 +22,7 @@ export class HomeComponent implements AfterViewInit {
     },
     primaryPhone: '(032) 253 90 08',
     mobPhones: ['(093) 429 05 34', '066 87 46 350']
-  }
+  };
 
   public companyInfo: ICompanyDetailedInfo;
   private routeSub: Subscription;
