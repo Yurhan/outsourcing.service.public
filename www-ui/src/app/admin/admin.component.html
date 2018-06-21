@@ -1,0 +1,110 @@
+<div class="header">
+</div>
+
+<div *ngIf="companyInfo">
+  <form (ngSubmit)="submitCompanyInfo()">
+    <div>
+      <label>Під тайлтл сторінки</label>
+      <input id="sub-title" [(ngModel)]="companyInfo.subTitle" [ngModelOptions]="{standalone: true}"
+        placeholder="
+        sub-title " type="text " />
+      <label>Тайтл сторінки</label>
+      <input id="title" [(ngModel)]="companyInfo.title" [ngModelOptions]="{standalone: true}"
+        placeholder="title" type="text" />
+    </div>
+
+    <div>
+      <h1>ПАРТНЕРИ</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Назва</th>
+            <th>Опис</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of companyInfo.partners">
+            <td>
+              <input [(ngModel)]="item.name" [ngModelOptions]="{standalone: true}" placeholder="Назва"
+                type="text" />
+            </td>
+            <td>
+              <input [(ngModel)]="item.description" [ngModelOptions]="{standalone: true}" placeholder="Опис"
+                type="text" />
+            </td>
+            <td>
+              <button type="button" (click)="removePartner(item.id)">-</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" (click)="addPartner()">+</button>
+    </div>
+
+    <div>
+      <h1>СЕРВІСИ</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Назва</th>
+            <th>Опис</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of companyInfo.services">
+            <td>
+              <input [(ngModel)]="item.name" [ngModelOptions]="{standalone: true}" placeholder="Назва"
+                type="text" />
+            </td>
+            <td>
+              <input [(ngModel)]="item.description" [ngModelOptions]="{standalone: true}" placeholder="Опис"
+                type="text" />
+            </td>
+            <td>
+              <button type="button" (click)="removeService(item.id)">-</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" (click)="addServices()">+</button>
+    </div>
+
+    <div>
+      <h1>ВАКАНСІЇ</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Назва</th>
+            <th>Опис</th>
+            <th>Стать</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of companyInfo.jobVacancies">
+            <td>
+              <input [(ngModel)]="item.name" [ngModelOptions]="{standalone: true}" placeholder="
+                Назва " type="text " />
+            </td>
+            <td>
+              <input [(ngModel)]="item.description " [ngModelOptions]="{standalone: true}" placeholder="Опис"
+                type="text" />
+            </td>
+            <td>
+              <select [(ngModel)]="item.gender" [ngModelOptions]="{standalone: true}" placeholder="
+                Стать ">
+                <option value="0">Вибери Стать</option>
+                <option value="Man">Чоловік</option>
+                <option value="Woman">Жінка</option>
+              </select>
+            </td>
+            <td>
+              <button type="button" (click)="removeJobVacancy(item.id)">-</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" (click)="addVacancy()">+</button>
+    </div>
+    <button type="submit">Зберегти</button>
+  </form>
+</div>

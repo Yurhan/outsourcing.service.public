@@ -1,0 +1,7 @@
+{
+  "apps" : [{
+    "name"        : "www-ui",
+    "script"      : "dist/server.js",
+    "instances"   : 1
+  }]
+}

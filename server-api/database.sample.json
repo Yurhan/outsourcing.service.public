@@ -1,0 +1,10 @@
+{
+  "dev": {
+    "driver": "mysql",
+    "user": "<your mysql username here>",
+    "password": "<your mysql password here>",
+    "host": "localhost",
+    "database": "medical-tool",
+    "multipleStatements": true
+  }
+}

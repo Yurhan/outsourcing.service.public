@@ -1,0 +1,61 @@
+
+.header {
+  display: inline-block;
+  background-color: rgba(30, 45, 59, 1);
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+
+  .nav-menu-conteiner,.header-separetor,.sub-title {
+    display: inline-block;
+  }
+  .sub-title {
+    margin: 0px auto;
+    background-color: rgb(167, 155, 87);
+  }
+  .header-separetor{
+    width: 1280px;
+  }
+
+  nav {
+    ul {
+      list-style: none;
+      display: inline-block;
+    }
+  }
+}
+
+agm-map {
+  height: 300px;
+}
+
+.content{
+  position: relative;
+  top: 100px;
+}
+
+.text-container {
+  .text-title {
+    font: normal normal normal 25px/1.4em avenir-lt-w01_85-heavy1475544,sans-serif;
+    color: #1E2D3B;
+    display: block;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  .text {
+    font: normal normal normal 17px/1.4em helvetica-w01-light,helvetica-w02-light,sans-serif;
+    color: #3B3A3A;
+    display: block;
+  }
+}
+
+.contacts-conteiner {
+  .text-container {
+    display: inline-block;
+    text-align: left;
+    width: 400px;
+    vertical-align: top;
+    position: relative;
+    left: 5%;
+  }
+}

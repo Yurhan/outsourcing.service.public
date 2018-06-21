@@ -1,0 +1,29 @@
+{
+  "port": 1400,
+  "dbSetting": {
+    "dialect": "mysql",
+    "username": "",
+    "host": "",
+    "password": "",
+    "name": "medical-tool"
+  },
+  "loggerConfig": {
+    "logWriterType": "CONSOLE"
+  },
+  "cacheOptions": {
+    "host": "localhost"
+  },
+  "mockUser": {
+    "id": 1,
+    "fistName": "boby",
+    "lastName": "singer",
+    "login": "boby",
+    "password": "pass"
+  },
+  "twilioSettings": {
+    "accountSid": "",
+    "authToken": "",
+    "applicationSid": ""
+  },
+  "useMockUser": false
+}

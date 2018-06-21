@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "name": "server-api",
+      "script": "dist/src/server.js",
+      "cwd": "server-api",
+      "instances": 1
+    },
+    {
+      "name": "www-ui",
+      "script": "./dist/server.js",
+      "cwd": "www-ui",
+      "instances": 1
+    }
+  ]
+}

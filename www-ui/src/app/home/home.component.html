@@ -1,0 +1,69 @@
+<div *ngIf="companyInfo" class="header">
+  <div class="sub-title">
+    <h1>{{companyInfo.title}}</h1>
+  </div>
+  <div class="header-separetor"></div>
+  <div class="nav-menu-conteiner">
+    <nav>
+      <ul>
+        <menu-button navigateTo="company-info" text="ГОЛОВНА"></menu-button>
+        <menu-button navigateTo="partners" text="ПАРТНЕРИ"></menu-button>
+        <menu-button navigateTo="services" text="СЕРВІСИ"></menu-button>
+        <menu-button navigateTo="job-vacancies" text="ВАКАНСІЇ"></menu-button>
+        <menu-button navigateTo="contacts" text="КОНТАКТИ"></menu-button>
+      </ul>
+    </nav>
+  </div>
+
+</div>
+<div class="content">
+  <div *ngIf="companyInfo">
+
+    <div id="company-info">
+      <div style="width: 100%; padding-top: 200px; text-align: center;">
+        <h2>{{companyInfo.subTitle}}</h2>
+      </div>
+    </div>
+
+    <page-layout id="partners" class="partners-conteiner" title="ПАРТНЕРИ">
+      <div *ngFor="let item of companyInfo.partners">
+        <span>{{item.name}}</span>
+        <span>{{item.description}}</span>
+      </div>
+    </page-layout>
+
+    <page-layout id="job-vacancies" class="job-vacancies-conteiner" title="ВАКАНСІЇ">
+      <div *ngFor="let item of companyInfo.jobVacancies">
+        <span>{{item.name}}</span>
+        <span>{{item.description}}</span>
+        <span>{{item.gender}}</span>
+      </div>
+    </page-layout>
+
+    <page-layout id="services" class="services-conteiner" title="СЕРВІСИ">
+      <div *ngFor="let item of companyInfo.services">
+        <span>{{item.name}}</span>
+        <span>{{item.description}}</span>
+      </div>
+    </page-layout>
+
+    <page-layout id="contacts" class="contacts-conteiner" title="КОНТАКТИ">
+      <div>
+        <div>
+          <agm-map [latitude]="lat" [longitude]="lng">
+            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+          </agm-map>
+        </div>
+        <div class="text-container">
+          <span class="text-title">Питання</span>
+          <span class="text">Забудьякими питанями просимо звертатись sdfasdf asdfasdf adsfasdf adsfasd
+            fafasdf asdfaf телефоном 8009789797.</span>
+        </div>
+        <div class="text-container">
+          <span class="text-title">Головний Офіс</span>
+          <span class="text">м. Львів вул. Дорошенка 50</span>
+        </div>
+      </div>
+    </page-layout>
+  </div>
+</div>

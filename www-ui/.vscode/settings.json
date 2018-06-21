@@ -1,0 +1,13 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "editor.formatOnSave": true,
+  "editor.renderWhitespace": "all",
+  "html.format.indentHandlebars": true,
+  "html.format.wrapLineLength": 80,
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "tslint.configFile": "tslint.json",
+  "tslint.enable": true
+}

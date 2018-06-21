@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "pm2": "^2.0.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "postinstall": "cd server-api && npm run compile && cd ../www-ui && npm run build",
+    "preinstall": "cd server-api && npm i && cd ../www-ui && npm i"
+  },
+  "license": "MIT"
+}
