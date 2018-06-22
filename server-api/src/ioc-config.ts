@@ -87,6 +87,7 @@ if (process.env.NODE_ENV === 'producation') {
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME
   }
+
 } else {
   sqlConfig = kernel.get<IConfig>(TYPES.CONFIG).get<pg.PoolConfig>('dbConfig');
 }
