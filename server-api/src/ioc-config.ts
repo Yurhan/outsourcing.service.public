@@ -77,7 +77,18 @@ kernel.bind<ISqlUserQueryBuilder>(Symbol.for('ISqlUserQueryBuilder')).to(SqlUser
 import * as pg from 'pg';
 import { ISqlDataDriver, PgSqlDataDriver } from './service/sql-data-access';
 
-const sqlConfig = kernel.get<IConfig>(TYPES.CONFIG).get<pg.PoolConfig>('dbConfig');
+
+let sqlConfig: pg.PoolConfig;
+if (process.env.NODE_ENV === 'producation') {
+  sqlConfig = {
+    host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_NAME
+  }
+} else {
+  sqlConfig = kernel.get<IConfig>(TYPES.CONFIG).get<pg.PoolConfig>('dbConfig');
+}
 let pool = new pg.Pool(sqlConfig);
 
 kernel.bind<ISqlDataDriver>(Symbol.for('ISqlDataDriver')).toConstantValue(new PgSqlDataDriver(pool));

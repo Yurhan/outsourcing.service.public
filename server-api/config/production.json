@@ -1,18 +1,10 @@
 {
   "port": 1400,
   "dbConfig": {
-    "user": {
-      "ENV": "DATABASE_USERNAME"
-    },
-    "password": {
-      "ENV": "DATABASE_PASSWORD"
-    },
-    "host": {
-      "ENV": "DATABASE_HOST"
-    },
-    "database": {
-      "ENV": "DATABASE_DATABASE"
-    }
+    "user": "DATABASE_USERNAME",
+    "password": "DATABASE_PASSWORD",
+    "host": "DATABASE_HOST",
+    "database": "DATABASE_NAME"
   },
   "loggerConfig": {
     "logWriterType": "CONSOLE"
