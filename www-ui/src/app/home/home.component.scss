@@ -13,6 +13,7 @@
     margin: 0px auto;
     background-color: rgb(167, 155, 87);
     float: left;
+    padding: 10px;
   }
 
   .nav-menu-conteiner {
@@ -29,13 +30,50 @@
   }
 }
 
-agm-map {
-  height: 300px;
+.company-title-container {
+  min-height: 800px;
+  background: url(/static/home.jpg) 50% 25% no-repeat;
+  background-size: 100%;
+  span {
+    font: normal normal normal 60px/1.4em avenir-lt-w01_85-heavy1475544,sans-serif;
+    font-family: Arial,Helvetica,sans-serif;
+  }
 }
 
 .content{
   position: relative;
   top: 100px;
+  .name {
+    line-height: 1.1em;
+    font: normal normal normal 22px/1.4em avenir-lt-w01_85-heavy1475544,sans-serif;
+    color: #3D5975;
+  }
+  .description {
+    font: normal normal normal 15px/1.4em helvetica-w01-light,helvetica-w02-light,sans-serif;
+    color: #3B3A3A;
+    line-height: 1.6em;
+    vertical-align: baseline;
+    word-wrap: break-word;
+  }
+}
+
+.partners-conteiner {
+  .partner {
+    display: inline-block;
+    background-color: rgba(247, 247, 247, 1);
+  }
+}
+
+.services-conteiner {
+  .service {
+    display: inline-block;
+    margin: 10px;
+    background-color: rgba(247, 247, 247, 1);
+    .text {
+      font: normal normal normal 15px/1.4em helvetica-w01-light,helvetica-w02-light,sans-serif;
+      color: #3B3A3A;
+    }
+  }
 }
 
 .text-container {

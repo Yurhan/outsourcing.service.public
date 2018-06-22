@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { GoogleMapService } from '../../../services/apis';
-import { IAddress, ILocation } from '../../../models';
+import { IAddress } from '../../../models';
 
 @Component({
   selector: 'google-map',

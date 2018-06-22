@@ -18,31 +18,31 @@
 <div class="content">
   <div *ngIf="companyInfo">
 
-    <div id="company-info">
+    <div id="company-info" class="company-title-container">
       <div style="width: 100%; padding-top: 200px; text-align: center;">
-        <h2>{{companyInfo.subTitle}}</h2>
+        <span>{{companyInfo.subTitle}}</span>
       </div>
     </div>
 
     <page-layout id="partners" class="partners-conteiner" title="ПАРТНЕРИ">
-      <div *ngFor="let item of companyInfo.partners">
-        <span>{{item.name}}</span>
-        <span>{{item.description}}</span>
+      <div *ngFor="let item of companyInfo.partners" class="partner">
+        <span class="name">{{item.name}}</span>
+        <span class="description">{{item.description}}</span>
       </div>
     </page-layout>
 
     <page-layout id="job-vacancies" class="job-vacancies-conteiner" title="ВАКАНСІЇ">
-      <div *ngFor="let item of companyInfo.jobVacancies">
-        <span>{{item.name}}</span>
-        <span>{{item.description}}</span>
+      <div *ngFor="let item of companyInfo.jobVacancies" class="job-vacancy">
+        <span class="name">{{item.name}}</span>
+        <span class="description">{{item.description}}</span>
         <span>{{item.gender}}</span>
       </div>
     </page-layout>
 
     <page-layout id="services" class="services-conteiner" title="СЕРВІСИ">
-      <div *ngFor="let item of companyInfo.services">
-        <span>{{item.name}}</span>
-        <span>{{item.description}}</span>
+      <div *ngFor="let item of companyInfo.services" class="service">
+        <span class="name">{{item.name}}</span>
+        <span class="description">{{item.description}}</span>
       </div>
     </page-layout>
 
