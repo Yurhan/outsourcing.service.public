@@ -10,16 +10,16 @@
   "prod": {
     "driver": "pg",
     "user": {
-      "ENV": "PRODUCTION_USERNAME"
+      "ENV": "DATABASE_USERNAME"
     },
     "password": {
-      "ENV": "PRODUCTION_PASSWORD"
+      "ENV": "DATABASE_PASSWORD"
     },
     "host": {
-      "ENV": "PRODUCTION_HOST"
+      "ENV": "DATABASE_HOST"
     },
     "database": {
-      "ENV": "PRODUCTION_DATABASE"
+      "ENV": "DATABASE_DATABASE"
     },
     "multipleStatements": true
   }

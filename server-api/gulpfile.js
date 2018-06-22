@@ -49,7 +49,7 @@ gulp.task('run', ['compile'], () => {
     script: 'dist/src/server.js',
     watch: ['src/'],
     ext: 'ts json',
-    env: { 'NODE_ENV': 'development' },
+    env: { 'NODE_ENV': process.env.NODE_ENV || 'development' },
     tasks: ['compile']
   })
 });
