@@ -80,7 +80,7 @@ import { ISqlDataDriver, PgSqlDataDriver } from './service/sql-data-access';
 
 let sqlConfig: pg.PoolConfig;
 console.log(process.env);
-if (process.env.NODE_ENV === 'producation') {
+if (process.env.NODE_ENV === 'production') {
   sqlConfig = {
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
