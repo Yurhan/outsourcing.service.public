@@ -4,7 +4,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "postinstall": "cd server-api && npm run compile && cd ../www-ui && npm run build",
+    "postinstall": "cd server-api && npm run compile && npm run migrate && cd ../www-ui && npm run build",
     "preinstall": "cd server-api && npm i && cd ../www-ui && npm i"
   },
   "license": "MIT"
