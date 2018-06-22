@@ -39,7 +39,6 @@ dist
 .node_repl_history
 
 #configs
-database.json
 development.json
 
 # hidden/private folders

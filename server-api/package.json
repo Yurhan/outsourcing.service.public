@@ -18,7 +18,8 @@
   "scripts": {
     "compile": "gulp compile",
     "start": "gulp run",
-    "test": "gulp test"
+    "test": "gulp test",
+    "migrate": "db-migrate up"
   },
   "dependencies": {
     "@types/body-parser": "0.0.33",

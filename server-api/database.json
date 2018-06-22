@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "driver": "pg",
+    "user": "postgres",
+    "password": "yurshmir90",
+    "host": "localhost",
+    "database": "outsource_service",
+    "multipleStatements": true
+  },
+  "prod": {
+    "driver": "pg",
+    "user": {
+      "ENV": "PRODUCTION_USERNAME"
+    },
+    "password": {
+      "ENV": "PRODUCTION_PASSWORD"
+    },
+    "host": {
+      "ENV": "PRODUCTION_HOST"
+    },
+    "database": {
+      "ENV": "PRODUCTION_DATABASE"
+    },
+    "multipleStatements": true
+  }
+}
