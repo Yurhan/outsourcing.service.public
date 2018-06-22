@@ -1,7 +1,6 @@
-import { Component, AfterViewInit, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { GoogleMapService } from '../../../services/apis';
-import { IAddress } from '../../../models';
-import { Observable } from 'rxjs';
+import { IAddress, ILocation } from '../../../models';
 
 @Component({
   selector: 'google-map',
@@ -10,9 +9,11 @@ import { Observable } from 'rxjs';
 })
 export class GoogleMapComponent implements OnInit {
 
-  public mapUrl: string;
+  public lat: number;
+  public lng: number;
+  public zoom = 17;
 
-  @Input() address: IAddress
+  @Input() address: IAddress;
 
   constructor(
     private googleMapService: GoogleMapService
@@ -21,21 +22,13 @@ export class GoogleMapComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.googleMapService.getApiKey().subscribe((key) => {
-      this.googleMapService.getLocation(this.address)
-        .subscribe((location) => {
-          this.mapUrl = `https://maps.googleapis.com/maps/api/js?key=${key}&callback=initMap`
-        })
-    });
-  }
-
-  public initMap(): void {
-    // The location of Uluru
-    var uluru = { lat: -25.344, lng: 131.036 };
-    // The map, centered at Uluru
-    var map = new google.maps.Map(
-      document.getElementById('map'), { zoom: 4, center: uluru });
-    // The marker, positioned at Uluru
-    var marker = new google.maps.Marker({ position: uluru, map: map });
+    // this.googleMapService.getApiKey().subscribe((key) => {
+    this.googleMapService.getLocation(this.address)
+      .subscribe((location) => {
+        console.log(location);
+        this.lat = location.lat;
+        this.lng = location.lng;
+      });
+    // });
   }
 }

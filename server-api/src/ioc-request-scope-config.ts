@@ -29,13 +29,15 @@ import {
   CompanyServicesService,
   CompanyInfoService,
   CompanyPartnerService,
-  JobVacancyService
+  JobVacancyService,
+  ContactService
 } from './service';
 import {
   ICompanyInfo,
   ICompanyPartner,
   ICompanyServices,
-  IJobVacancy
+  IJobVacancy,
+  IContact
 } from './models';
 
 function bindServices(kernel: Kernel): void {
@@ -44,6 +46,7 @@ function bindServices(kernel: Kernel): void {
   kernel.bind<IDataService<ICompanyPartner>>(Symbol.for('IDataService<ICompanyPartner>')).to(CompanyPartnerService);
   kernel.bind<IDataService<ICompanyServices>>(Symbol.for('IDataService<ICompanyServices>')).to(CompanyServicesService);
   kernel.bind<IDataService<IJobVacancy>>(Symbol.for('IDataService<IJobVacancy>')).to(JobVacancyService);
+  kernel.bind<IDataService<IContact>>(Symbol.for('IDataService<IContact>')).to(ContactService);
 }
 
 export function bindRequestScope(kernel: Kernel): void {

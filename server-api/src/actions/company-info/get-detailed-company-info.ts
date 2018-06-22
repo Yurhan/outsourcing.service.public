@@ -7,7 +7,8 @@ import {
   ICompanyPartner,
   ICompanyServices,
   IJobVacancy,
-  ICompanyDetailedInfo
+  ICompanyDetailedInfo,
+  IContact
 } from '../../models';
 import * as TYPES from '../../types';
 // import { NotFoundError } from '../../common';
@@ -19,25 +20,26 @@ export function getCompanyDetailedInfoRouteHandler(req: IAppRequest, res: IJsonR
   let companyPartnerservice = req.kernel.get<IDataService<ICompanyPartner>>(Symbol.for('IDataService<ICompanyPartner>'));
   let companyServicesService = req.kernel.get<IDataService<ICompanyServices>>(Symbol.for('IDataService<ICompanyServices>'));
   let jobVacancyservice = req.kernel.get<IDataService<IJobVacancy>>(Symbol.for('IDataService<IJobVacancy>'));
+  let contactService = req.kernel.get<IDataService<IContact>>(Symbol.for('IDataService<IContact>'));
 
   res.jsonPromise(
     Promise.all([
       companyInfoservice.getAll(),
       companyPartnerservice.getAll(),
       companyServicesService.getAll(),
-      jobVacancyservice.getAll()
+      jobVacancyservice.getAll(),
+      contactService.getAll()
     ])
-      .then(([info, partners, services, vacancies]) => {
+      .then(([info, partners, services, vacancies, contacts]) => {
         // if (!info) {
         //   throw new NotFoundError('Company Info');
         // }
         return {
-          id: info[0].id,
-          title: info[0].title,
-          subTitle: (<any>info[0]).subtitle,
+          ...info[0],
           partners: partners,
           services: services,
-          jobVacancies: vacancies
+          jobVacancies: vacancies,
+          contact: contacts[0]
         }
       })
   );

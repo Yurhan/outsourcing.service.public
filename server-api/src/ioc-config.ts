@@ -30,7 +30,8 @@ import {
   ICompanyPartner,
   ICompanyServices,
   IJobVacancy,
-  IUser
+  IUser,
+  IContact
 } from './models';
 
 //VALIDATION
@@ -40,13 +41,15 @@ import {
   CompanyInfoValidator,
   CompanyPartnerValidator,
   CompanyServicesValidator,
-  JobVacancyValidator
+  JobVacancyValidator,
+  ContactValidator
 } from './service/validation';
 
 kernel.bind<IBaseTableModelValidator<ICompanyInfo>>(Symbol.for('IBaseTableModelValidator<ICompanyInfo>')).to(CompanyInfoValidator).inSingletonScope;
 kernel.bind<IBaseTableModelValidator<ICompanyPartner>>(Symbol.for('IBaseTableModelValidator<ICompanyPartner>')).to(CompanyPartnerValidator).inSingletonScope;
 kernel.bind<IBaseTableModelValidator<ICompanyServices>>(Symbol.for('IBaseTableModelValidator<ICompanyServices>')).to(CompanyServicesValidator).inSingletonScope;
 kernel.bind<IBaseTableModelValidator<IJobVacancy>>(Symbol.for('IBaseTableModelValidator<IJobVacancy>')).to(JobVacancyValidator).inSingletonScope;
+kernel.bind<IBaseTableModelValidator<IContact>>(Symbol.for('IBaseTableModelValidator<IContact>')).to(ContactValidator).inSingletonScope;
 
 import {
   IQueryValueEscaper,
@@ -57,7 +60,8 @@ import {
   SqlCompanyServicesQueryBuilder,
   SqlJobVacancyQueryBuilder,
   SqlUserQueryBuilder,
-  ISqlUserQueryBuilder
+  ISqlUserQueryBuilder,
+  SqlContactQueryBuilder
 } from './service/sql-building';
 
 kernel.bind<IQueryValueEscaper>(Symbol.for('IQueryValueEscaper')).to(PgQueryValueEscaper).inSingletonScope;
@@ -65,7 +69,9 @@ kernel.bind<ISqlTableQueryBuilder<ICompanyInfo>>(Symbol.for('ISqlTableQueryBuild
 kernel.bind<ISqlTableQueryBuilder<ICompanyPartner>>(Symbol.for('ISqlTableQueryBuilder<ICompanyPartner>')).to(SqlCompanyPartnerQueryBuilder).inSingletonScope;
 kernel.bind<ISqlTableQueryBuilder<ICompanyServices>>(Symbol.for('ISqlTableQueryBuilder<ICompanyServices>')).to(SqlCompanyServicesQueryBuilder).inSingletonScope;
 kernel.bind<ISqlTableQueryBuilder<IJobVacancy>>(Symbol.for('ISqlTableQueryBuilder<IJobVacancy>')).to(SqlJobVacancyQueryBuilder).inSingletonScope;
+kernel.bind<ISqlTableQueryBuilder<IContact>>(Symbol.for('ISqlTableQueryBuilder<IContact>')).to(SqlContactQueryBuilder).inSingletonScope;
 kernel.bind<ISqlUserQueryBuilder>(Symbol.for('ISqlUserQueryBuilder')).to(SqlUserQueryBuilder).inSingletonScope;
+
 
 //SQL DATA ACCESS
 import * as pg from 'pg';
@@ -73,20 +79,6 @@ import { ISqlDataDriver, PgSqlDataDriver } from './service/sql-data-access';
 
 const sqlConfig = kernel.get<IConfig>(TYPES.CONFIG).get<pg.PoolConfig>('dbConfig');
 let pool = new pg.Pool(sqlConfig);
-// pool.on('error', (err, client) => {
-//   console.error('Unexpected error on idle client', err)
-//   process.exit(-1)
-// });
-
-// pool.connect((err, client, done) => {
-//   if (err) throw err;
-
-//   client.query('SELECT * FROM companyInfo', [], (err, res) => {
-//     done();
-//     console.log(res);
-//     client.release();
-//   });
-// });
 
 kernel.bind<ISqlDataDriver>(Symbol.for('ISqlDataDriver')).toConstantValue(new PgSqlDataDriver(pool));
 

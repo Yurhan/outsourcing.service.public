@@ -9,8 +9,8 @@ export interface IGeometry {
 }
 
 export interface IGoogleMapRI {
-  result: {
+  results: {
     geometry: IGeometry;
-  };
+  }[];
   status: string;
 }

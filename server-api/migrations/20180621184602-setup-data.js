@@ -20,6 +20,11 @@ INSERT INTO "companyinfo"
 VALUES
   ('Ми не беремо гроші за ваше працевлаштування', 'Не їдь в Європу - ми маємо роботу');
 
+INSERT INTO "contact"
+  (city, street, primaryPhone, mobPhones)
+VALUES
+  ('Львів', 'Гайдамацька 11', '(032) 253 90 08', '(093) 429 05 34,(066) 87 46 350');
+
 INSERT INTO "companyservices"
   ("name", "description")
 VALUES

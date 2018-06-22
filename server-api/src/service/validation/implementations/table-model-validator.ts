@@ -145,3 +145,19 @@ export class CompanyInfoValidator extends BaseTableModelValidator<ICompanyInfo, 
     super(loggerFactory.getLogger('services.CompanyInfoValidator'), constraints, constraints, constraints, constraints);
   }
 }
+
+import { IContact } from '../../../models';
+
+class ContactConstraints {
+  id = IntegerConstraints;
+};
+
+@injectable()
+export class ContactValidator extends BaseTableModelValidator<IContact, ContactConstraints, ContactConstraints, ContactConstraints, ContactConstraints> {
+  public constructor(
+    @inject(Symbol.for('ILoggerFactory')) loggerFactory: ILoggerFactory
+  ) {
+    let constraints = new ContactConstraints();
+    super(loggerFactory.getLogger('services.ContactValidator'), constraints, constraints, constraints, constraints);
+  }
+}

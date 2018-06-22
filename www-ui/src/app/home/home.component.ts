@@ -12,19 +12,8 @@ import { IContact } from '../../models/contact';
 })
 export class HomeComponent implements AfterViewInit {
 
-  public lat: number = 51.678418;
-  public lng: number = 7.809007;
-
-  public contact: IContact = {
-    address: {
-      city: 'Львів',
-      street: 'Гайдамацька 11'
-    },
-    primaryPhone: '(032) 253 90 08',
-    mobPhones: ['(093) 429 05 34', '066 87 46 350']
-  };
-
   public companyInfo: ICompanyDetailedInfo;
+  public contact: IContact;
   private routeSub: Subscription;
 
   constructor(
@@ -40,6 +29,7 @@ export class HomeComponent implements AfterViewInit {
       this.comapnyInfoApi.getDetailed()
         .subscribe(companyInfo => {
           this.companyInfo = companyInfo;
+          this.contact = this.companyInfo.contact;
         });
     });
   }

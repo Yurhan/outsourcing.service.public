@@ -2,7 +2,6 @@
   <div class="sub-title">
     <h1>{{companyInfo.title}}</h1>
   </div>
-  <div class="header-separetor"></div>
   <div class="nav-menu-conteiner">
     <nav>
       <ul>
@@ -49,8 +48,7 @@
 
     <page-layout id="contacts" class="contacts-conteiner" title="КОНТАКТИ">
       <div>
-        <div>
-        </div>
+        <google-map *ngIf="contact" [address]="contact.address"></google-map>
         <div class="text-container">
           <span class="text-title">Питання</span>
           <span class="text">Забудьякими питанями просимо звертатись sdfasdf asdfasdf adsfasdf adsfasd

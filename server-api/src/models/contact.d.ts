@@ -1,11 +1,11 @@
 export interface IAddress {
-  city: string;
-  street: string;
+  city?: string;
+  street?: string;
 }
 
 export interface IContact {
   id: number;
-  address: IAddress;
+  address?: IAddress;
   primaryPhone: string;
   mobPhones: string[];
 }

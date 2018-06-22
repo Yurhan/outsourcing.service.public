@@ -90,6 +90,29 @@ export class SqlJobVacancyQueryBuilder extends SqlTableQueryBuilder<IJobVacancy>
 }
 
 
+//CONTACT SQL BUIDLER
+import { IContact } from '../../../models';
+
+@injectable()
+@table<IContact>('contact', {
+  id: {
+    primaryKey: true,
+    autoIncrement: true,
+    valueFunc: rec => rec.id
+  },
+  city: rec => rec.address ? rec.address.city : null,
+  street: rec => rec.address ? rec.address.street : null,
+  primaryPhone: rec => rec.primaryPhone,
+  mobPhones: rec => rec.mobPhones ? rec.mobPhones.join(',') : null,
+})
+export class SqlContactQueryBuilder extends SqlTableQueryBuilder<IContact> {
+  constructor(
+    @inject(Symbol.for('IQueryValueEscaper')) queryValueEscaper: IQueryValueEscaper
+  ) {
+    super(queryValueEscaper);
+  }
+}
+
 //JOB USER SQL BUIDLER
 import { IUser } from '../../../models';
 import { ISqlUserQueryBuilder, ISqlQuery } from '..';

@@ -116,9 +116,13 @@ export class BaseDataService<TData> implements IDataService<TData> {
 
   public getAll(): Promise<TData[]> {
     let sqlQuery = this.queryBuilder.buildSelectManyQuery();
-    return this.queryableProvider.getQueryable().query<TData>(sqlQuery, {}).then(res => {
-      return res;
-    });
+    return this.queryableProvider.getQueryable()
+      .query<TData>(sqlQuery, {})
+      .then(res => res.map((rec) => this.convertDbRawtoResModel(rec)));
+  }
+
+  protected convertDbRawtoResModel(recData: any): TData {
+    return recData;
   }
 }
 
@@ -179,5 +183,47 @@ export class CompanyInfoService extends BaseDataService<ICompanyInfo> {
     @inject(Symbol.for('IBaseTableModelValidator<ICompanyInfo>')) validator: IBaseTableModelValidator<ICompanyInfo>,
   ) {
     super(queryableProvider, queryBuilder, validator);
+  }
+
+  protected convertDbRawtoResModel(recData: any): ICompanyInfo {
+    let res: ICompanyInfo = {
+      id: recData.id,
+      title: recData.title,
+      subTitle: recData.subtitle
+    }
+    return res;
+  }
+}
+
+
+import {
+  IContact
+} from '../../../models';
+
+export class ContactService extends BaseDataService<IContact> {
+  constructor(
+    @inject(Symbol.for('IQueryableProvider')) queryableProvider: IQueryableProvider,
+    @inject(Symbol.for('ISqlTableQueryBuilder<IContact>')) queryBuilder: ISqlTableQueryBuilder<IContact>,
+    @inject(Symbol.for('IBaseTableModelValidator<IContact>')) validator: IBaseTableModelValidator<IContact>,
+  ) {
+    super(queryableProvider, queryBuilder, validator);
+  }
+
+  protected convertDbRawtoResModel(recData: any): IContact {
+    let res: IContact = {
+      id: recData.id,
+      primaryPhone: recData.primaryphone,
+      mobPhones: []
+    };
+    if (recData.city || recData.street) {
+      res.address = {
+        city: recData.city,
+        street: recData.street
+      };
+    }
+    if (recData.mobphones && recData.mobphones.trim() !== '') {
+      res.mobPhones = recData.mobphones.split(',');
+    }
+    return res;
   }
 }

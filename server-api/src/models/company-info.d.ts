@@ -7,11 +7,13 @@ export interface ICompanyInfo {
 import {
   ICompanyPartner,
   ICompanyServices,
-  IJobVacancy
-} from '.'
+  IJobVacancy,
+  IContact
+} from '.';
 
 export interface ICompanyDetailedInfo extends ICompanyInfo {
   partners: ICompanyPartner[];
   jobVacancies: IJobVacancy[];
   services: ICompanyServices[];
+  contact: IContact
 }

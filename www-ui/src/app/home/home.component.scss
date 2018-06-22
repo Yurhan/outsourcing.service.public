@@ -12,9 +12,13 @@
   .sub-title {
     margin: 0px auto;
     background-color: rgb(167, 155, 87);
+    float: left;
   }
-  .header-separetor{
-    width: 1280px;
+
+  .nav-menu-conteiner {
+    float: right;
+    margin-right: 10px;
+    vertical-align: bottom;
   }
 
   nav {

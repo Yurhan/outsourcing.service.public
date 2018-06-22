@@ -1,7 +1,6 @@
 import { Observable } from 'rxjs/Rx';
 import {
   IAddress,
-  IGoogleMapRI,
   ILocation
 } from '../../../models';
 

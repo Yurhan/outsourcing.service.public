@@ -26,22 +26,30 @@ const sqlUp = `
     subTitle  varchar(256) NULL
   );
 
+  CREATE TABLE contact (
+    "id"        SERIAL PRIMARY KEY,
+    city       varchar(256) NOT NULL,
+    street  varchar(256) NULL,
+    primaryPhone varchar(256) NULL,
+    mobPhones varchar(256) NULL
+  );
+
   CREATE TABLE companyPartner (
     "id"        SERIAL PRIMARY KEY,
     name       varchar(256) NOT NULL,
-    description  varchar(256) NULL
+    description  varchar(512) NULL
   );
 
   CREATE TABLE companyServices (
     "id"        SERIAL PRIMARY KEY,
     name       varchar(256) NOT NULL,
-    description  varchar(256) NULL
+    description  varchar(512) NULL
   );
 
   CREATE TABLE jobVacancy (
     "id"        SERIAL PRIMARY KEY,
     name       varchar(256) NOT NULL,
-    description  varchar(256) NULL,
+    description  varchar(512) NULL,
     gender varchar(5) NOT NULL
   );
 `;
