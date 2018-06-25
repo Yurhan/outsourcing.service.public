@@ -7,6 +7,8 @@ import { ICompanyDetailedInfo } from '../../models';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs';
 
+import * as _ from 'lodash';
+
 @Component({
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
@@ -31,6 +33,22 @@ export class AdminComponent implements AfterViewInit {
           this.companyInfo = companyInfo;
           this.companyInfo.title = this.companyInfo.title || '';
           this.companyInfo.subTitle = this.companyInfo.subTitle || '';
+
+          if (!this.companyInfo.contact) {
+            this.companyInfo.contact = <any>{
+              id: 0,
+              primaryPhone: '',
+              mobPhones: []
+            };
+          }
+
+          if (!this.companyInfo.contact.address) {
+            this.companyInfo.contact.address = {
+              city: '',
+              street: ''
+            };
+          }
+
         });
     });
   }
@@ -62,6 +80,17 @@ export class AdminComponent implements AfterViewInit {
     });
   }
 
+  public addMobNumber(): void {
+    this.companyInfo.contact.mobPhones.push('');
+  }
+
+  public removeMobNumber(mobNumber: string): void {
+    let index = this.companyInfo.contact.mobPhones.indexOf(mobNumber);
+    console.log('index', index);
+    this.companyInfo.contact.mobPhones.splice(index, 1);
+    console.log(this.companyInfo.contact.mobPhones);
+  }
+
   public removeJobVacancy(id: number): void {
     let index = this.companyInfo.jobVacancies.findIndex(x => x.id === id);
     this.companyInfo.jobVacancies.splice(index, 1);
@@ -77,10 +106,15 @@ export class AdminComponent implements AfterViewInit {
     this.companyInfo.partners.splice(index, 1);
   }
 
+  public customTrackBy(index: number, obj: any): any {
+    return index;
+  }
+
   public submitCompanyInfo(): void {
     this.companyInfo.services = this.companyInfo.services.filter(x => x.name && x.name.trim() !== '');
     this.companyInfo.partners = this.companyInfo.partners.filter(x => x.name && x.name.trim() !== '');
     this.companyInfo.jobVacancies = this.companyInfo.jobVacancies.filter(x => x.name && x.name.trim() !== '');
+    this.companyInfo.contact.mobPhones = _.uniq(this.companyInfo.contact.mobPhones.filter(x => x && x.trim() !== ''));
 
     this.comapnyInfoApi.submitDetailedInfo(this.companyInfo)
       .subscribe(() => {

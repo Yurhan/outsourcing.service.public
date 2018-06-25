@@ -33,12 +33,12 @@
                 type="text" />
             </td>
             <td>
-              <button type="button" (click)="removePartner(item.id)">-</button>
+              <button type="button" (click)="removePartner(item.id)">Видалити</button>
             </td>
           </tr>
         </tbody>
       </table>
-      <button type="button" (click)="addPartner()">+</button>
+      <button type="button" (click)="addPartner()">Додати</button>
     </div>
 
     <div>
@@ -61,12 +61,12 @@
                 type="text" />
             </td>
             <td>
-              <button type="button" (click)="removeService(item.id)">-</button>
+              <button type="button" (click)="removeService(item.id)">Видалити</button>
             </td>
           </tr>
         </tbody>
       </table>
-      <button type="button" (click)="addServices()">+</button>
+      <button type="button" (click)="addServices()">Додати</button>
     </div>
 
     <div>
@@ -98,13 +98,49 @@
               </select>
             </td>
             <td>
-              <button type="button" (click)="removeJobVacancy(item.id)">-</button>
+              <button type="button" (click)="removeJobVacancy(item.id)">Видалити</button>
             </td>
           </tr>
         </tbody>
       </table>
-      <button type="button" (click)="addVacancy()">+</button>
+      <button type="button" (click)="addVacancy()">Додати</button>
     </div>
+
+    <div>
+      <h1>КОНТАКТИ</h1>
+      <div>
+        <h2>Адреса</h2>
+        <div>
+          <label>Місто</label>
+          <input [(ngModel)]="companyInfo.contact.address.city" [ngModelOptions]="{standalone: true}"
+            placeholder="Місто" type="text" />
+        </div>
+        <div>
+          <label>Вулиця і будинок</label>
+          <input [(ngModel)]="companyInfo.contact.address.street" [ngModelOptions]="{standalone: true}"
+            placeholder="Вулиця і будинок" type="text" />
+        </div>
+      </div>
+      <div>
+        <h2>Контактний телефон</h2>
+        <div>
+          <label>Головний номер</label>
+          <input [(ngModel)]="companyInfo.contact.primaryPhone" [ngModelOptions]="{standalone: true}"
+            placeholder="Головний номер" type="text" />
+        </div>
+        <div>
+          <label>Мобільні номера</label>
+          <div *ngFor="let mobPhone of companyInfo.contact.mobPhones; let i=index; trackBy:customTrackBy">
+            <input [(ngModel)]="companyInfo.contact.mobPhones[i]" [value]="companyInfo.contact.mobPhones[i]"
+              [ngModelOptions]="{standalone: true}" placeholder="Мобільний номер" type="text"
+            />
+            <button type="button" (click)="removeMobNumber(companyInfo.contact.mobPhones[i])">Видалити</button>
+          </div>
+          <button type="button" (click)="addMobNumber()">Додати номер</button>
+        </div>
+      </div>
+    </div>
+
     <button type="submit">Зберегти</button>
   </form>
 </div>
