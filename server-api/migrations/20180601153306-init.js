@@ -38,7 +38,7 @@ const sqlUp = `
     "id"        SERIAL PRIMARY KEY,
     name       varchar(256) NOT NULL,
     description  varchar(512) NULL,
-    "imageRef"  varchar(512) NULL
+    imageref  varchar(512) NULL
   );
 
   CREATE TABLE companyServices (
@@ -48,11 +48,19 @@ const sqlUp = `
   );
 
   CREATE TABLE jobVacancy (
-    "id"        SERIAL PRIMARY KEY,
+    "id"       SERIAL PRIMARY KEY,
     name       varchar(256) NOT NULL,
     description  varchar(512) NULL,
     gender varchar(5) NOT NULL
   );
+
+  CREATE TABLE "picture" (
+    "id"      varchar(256) PRIMARY KEY,
+    name      varchar(256) NOT NULL,
+    mimetype  varchar(512) NOT NULL,
+    "content" bytea NOT NULL
+  );
+
 `;
 
 exports.up = function (db) {
@@ -66,7 +74,8 @@ DROP TABLE companyInfo;
 DROP TABLE companyPartner;
 DROP TABLE companyServices;
 DROP TABLE jobVacancy;
-DROP TABLE contact
+DROP TABLE contact;
+DROP TABLE "picture";
 `;
 
 exports.down = function (db) {

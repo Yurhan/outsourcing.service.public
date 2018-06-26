@@ -30,7 +30,6 @@ import {
   ICompanyPartner,
   ICompanyServices,
   IJobVacancy,
-  IUser,
   IContact
 } from './models';
 
@@ -45,11 +44,11 @@ import {
   ContactValidator
 } from './service/validation';
 
-kernel.bind<IBaseTableModelValidator<ICompanyInfo>>(Symbol.for('IBaseTableModelValidator<ICompanyInfo>')).to(CompanyInfoValidator).inSingletonScope;
-kernel.bind<IBaseTableModelValidator<ICompanyPartner>>(Symbol.for('IBaseTableModelValidator<ICompanyPartner>')).to(CompanyPartnerValidator).inSingletonScope;
-kernel.bind<IBaseTableModelValidator<ICompanyServices>>(Symbol.for('IBaseTableModelValidator<ICompanyServices>')).to(CompanyServicesValidator).inSingletonScope;
-kernel.bind<IBaseTableModelValidator<IJobVacancy>>(Symbol.for('IBaseTableModelValidator<IJobVacancy>')).to(JobVacancyValidator).inSingletonScope;
-kernel.bind<IBaseTableModelValidator<IContact>>(Symbol.for('IBaseTableModelValidator<IContact>')).to(ContactValidator).inSingletonScope;
+kernel.bind<IBaseTableModelValidator<ICompanyInfo>>(TYPES.COMPANY_INFO_VALIDATOR).to(CompanyInfoValidator).inSingletonScope;
+kernel.bind<IBaseTableModelValidator<ICompanyPartner>>(TYPES.COMPANY_PARTNER_VALIDATOR).to(CompanyPartnerValidator).inSingletonScope;
+kernel.bind<IBaseTableModelValidator<ICompanyServices>>(TYPES.COMPANY_SERVICES_VALIDATOR).to(CompanyServicesValidator).inSingletonScope;
+kernel.bind<IBaseTableModelValidator<IJobVacancy>>(TYPES.JOB_VACANCY_VALIDATOR).to(JobVacancyValidator).inSingletonScope;
+kernel.bind<IBaseTableModelValidator<IContact>>(TYPES.CONTACT_VALIDATOR).to(ContactValidator).inSingletonScope;
 
 import {
   IQueryValueEscaper,
@@ -64,14 +63,13 @@ import {
   SqlContactQueryBuilder
 } from './service/sql-building';
 
-kernel.bind<IQueryValueEscaper>(Symbol.for('IQueryValueEscaper')).to(PgQueryValueEscaper).inSingletonScope;
-kernel.bind<ISqlTableQueryBuilder<ICompanyInfo>>(Symbol.for('ISqlTableQueryBuilder<ICompanyInfo>')).to(SqlCompanyInfoQueryBuilder).inSingletonScope;
-kernel.bind<ISqlTableQueryBuilder<ICompanyPartner>>(Symbol.for('ISqlTableQueryBuilder<ICompanyPartner>')).to(SqlCompanyPartnerQueryBuilder).inSingletonScope;
-kernel.bind<ISqlTableQueryBuilder<ICompanyServices>>(Symbol.for('ISqlTableQueryBuilder<ICompanyServices>')).to(SqlCompanyServicesQueryBuilder).inSingletonScope;
-kernel.bind<ISqlTableQueryBuilder<IJobVacancy>>(Symbol.for('ISqlTableQueryBuilder<IJobVacancy>')).to(SqlJobVacancyQueryBuilder).inSingletonScope;
-kernel.bind<ISqlTableQueryBuilder<IContact>>(Symbol.for('ISqlTableQueryBuilder<IContact>')).to(SqlContactQueryBuilder).inSingletonScope;
-kernel.bind<ISqlUserQueryBuilder>(Symbol.for('ISqlUserQueryBuilder')).to(SqlUserQueryBuilder).inSingletonScope;
-
+kernel.bind<IQueryValueEscaper>(TYPES.QUERY_VALUE_ESCAPER).to(PgQueryValueEscaper).inSingletonScope;
+kernel.bind<ISqlTableQueryBuilder<ICompanyInfo>>(TYPES.COMPANY_INFO_QUERY_BUILDER).to(SqlCompanyInfoQueryBuilder).inSingletonScope;
+kernel.bind<ISqlTableQueryBuilder<ICompanyPartner>>(TYPES.COMPANY_PARTNER_QUERY_BUILDER).to(SqlCompanyPartnerQueryBuilder).inSingletonScope;
+kernel.bind<ISqlTableQueryBuilder<ICompanyServices>>(TYPES.COMPANY_SERVICES_QUERY_BUILDER).to(SqlCompanyServicesQueryBuilder).inSingletonScope;
+kernel.bind<ISqlTableQueryBuilder<IJobVacancy>>(TYPES.JOB_VACANCY_QUERY_BUILDER).to(SqlJobVacancyQueryBuilder).inSingletonScope;
+kernel.bind<ISqlTableQueryBuilder<IContact>>(TYPES.CONTACT_QUERY_BUILDER).to(SqlContactQueryBuilder).inSingletonScope;
+kernel.bind<ISqlUserQueryBuilder>(TYPES.USER_QUERY_BUILDER).to(SqlUserQueryBuilder).inSingletonScope;
 
 //SQL DATA ACCESS
 import * as pg from 'pg';
@@ -93,7 +91,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 let pool = new pg.Pool(sqlConfig);
 
-kernel.bind<ISqlDataDriver>(Symbol.for('ISqlDataDriver')).toConstantValue(new PgSqlDataDriver(pool));
+kernel.bind<ISqlDataDriver>(TYPES.SQL_DATA_DRIVER).toConstantValue(new PgSqlDataDriver(pool));
 
 //TOOLS
 import * as fastSHA256 from 'fast-sha256';
@@ -101,11 +99,14 @@ import * as fastSHA256 from 'fast-sha256';
 import {
   IFastSHA256,
   ISHACryptoProvider,
-  SHACryptoProvider
+  SHACryptoProvider,
+  IFilePromise,
+  FilePromise
 } from './common/tools';
 
 kernel.bind<IFastSHA256>(TYPES.FAST_SHA256).toConstantValue({ hash: fastSHA256.hash });
 kernel.bind<ISHACryptoProvider>(TYPES.SHA_CRYPTO_PROVIDER).to(SHACryptoProvider).inSingletonScope;
+kernel.bind<IFilePromise>(TYPES.FILE_PROMISE).to(FilePromise).inSingletonScope;
 
 // //CACHE
 // import {

@@ -3,7 +3,7 @@ import {
   IFieldInfo
 } from '../interfaces';
 
-type getValueFunc<TableModel> = (record: TableModel) => number | string | boolean | Date | null | undefined;
+type getValueFunc<TableModel> = (record: TableModel) => number | string | boolean | Date | Buffer | null | undefined;
 
 type Field<TableModel> = {
   uid?: boolean;

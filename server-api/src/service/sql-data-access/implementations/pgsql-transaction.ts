@@ -1,8 +1,8 @@
 import * as pg from 'pg';
 import * as Promise from 'bluebird';
 import { PgSqlQueryable } from './pgsql-queryable';
-import { ISqlDataDriver, ISqlTransaction } from '../';
-import { injectable, inject } from 'inversify';
+import { ISqlTransaction } from '../';
+import { injectable } from 'inversify';
 
 @injectable()
 export class PgSqlTransaction extends PgSqlQueryable implements ISqlTransaction {
@@ -14,11 +14,11 @@ export class PgSqlTransaction extends PgSqlQueryable implements ISqlTransaction 
     this.conn = conn;
   }
 
-  isFinished(): boolean {
+  public isFinished(): boolean {
     return this._isFinished;
   }
 
-  commit(): Promise<void> {
+  public commit(): Promise<void> {
     if (this.isFinished()) {
       return Promise.reject('Cannot call commit on a finished PgSqlTransaction.');
     }
@@ -36,7 +36,7 @@ export class PgSqlTransaction extends PgSqlQueryable implements ISqlTransaction 
     });
   }
 
-  rollback(): Promise<void> {
+  public rollback(): Promise<void> {
     if (this.isFinished()) {
       return Promise.reject('Cannot call rollback on a finished PgSqlTransaction.');
     }

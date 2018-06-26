@@ -9,10 +9,12 @@ import {
   ICompanyPartner,
   ICompanyServices,
   ICompanyDetailedInfo,
-  IContact
+  IContact,
+  IPicture
 } from '../../models';
 // import * as validation from '../../service/validation';
 import * as TYPES from '../../types';
+import { IPictureService } from '../../service';
 
 export function submitCompanyDetailedInfoRouteHandler(req: IAppRequest, res: IJsonResponse): void {
   let logger = req.kernel.get<ILoggerFactory>(TYPES.LOGGER_FACTORY).getLogger('actions.companyInfo.submitCompanyDetailedInfoRouteHandler');
@@ -23,6 +25,7 @@ export function submitCompanyDetailedInfoRouteHandler(req: IAppRequest, res: IJs
   let companyPartnersService = req.kernel.get<IDataService<ICompanyPartner>>(Symbol.for('IDataService<ICompanyPartner>'));
   let jobVacanciesService = req.kernel.get<IDataService<IJobVacancy>>(Symbol.for('IDataService<IJobVacancy>'));
   let contactService = req.kernel.get<IDataService<IContact>>(Symbol.for('IDataService<IContact>'));
+  let pictureService = req.kernel.get<IPictureService>(TYPES.PICTURE_SERVICE);
   let unitOfWork = req.kernel.get<IUnitOfWork>(TYPES.UNIT_OF_WORK);
 
   let companyInfo: ICompanyDetailedInfo = req.body;
@@ -46,7 +49,14 @@ export function submitCompanyDetailedInfoRouteHandler(req: IAppRequest, res: IJs
   promises.push(companyPartnersService.submitList(companyInfo.partners));
   promises.push(jobVacanciesService.submitList(companyInfo.jobVacancies));
 
-  //TODO remove old not referanced pictures
-
-  res.jsonPromise(unitOfWork.beginAutoCommitTransaction(Promise.all(promises)));
+  res.jsonPromise(
+    unitOfWork.beginAutoCommitTransaction(
+      Promise.all(promises)
+        .then(() => companyPartnersService.getAll())
+        .then((partners) => {
+          let imgIds = partners.map(p => p.imageRef).filter(img => img && img.trim() !== '');
+          return pictureService.deleteUnAssigned(imgIds);
+        })
+    )
+  );
 }

@@ -12,7 +12,7 @@ export interface IFieldInfo<TableModel> {
   autoIncrement?: boolean;
   uid?: boolean;
   name: string;
-  getValue: (rec: TableModel) => string | number | boolean | Date | null | undefined;
+  getValue: (rec: TableModel) => string | number | boolean | Date | Buffer | null | undefined;
 }
 
 export interface ITableInfo<TableModel> {

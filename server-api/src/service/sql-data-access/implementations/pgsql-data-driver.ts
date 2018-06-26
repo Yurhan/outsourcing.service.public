@@ -4,6 +4,7 @@ import { injectable, inject } from 'inversify';
 import { ISqlDataDriver, ISqlTransaction } from '../';
 import { PgSqlQueryable } from './pgsql-queryable';
 import { PgSqlTransaction } from './pgsql-transaction';
+import { resolve } from 'url';
 
 @injectable()
 export class PgSqlDataDriver extends PgSqlQueryable implements ISqlDataDriver {
@@ -12,11 +13,11 @@ export class PgSqlDataDriver extends PgSqlQueryable implements ISqlDataDriver {
     super(pool);
   }
 
-  createTransaction(): Promise<ISqlTransaction> {
+  public createTransaction(): Promise<ISqlTransaction> {
     return new Promise<ISqlTransaction>((resolve, reject) => {
       this.pool.connect()
         .then(client => {
-          return client.query('BEGIN').then(queryRes => {
+          return client.query('BEGIN').then(() => {
             resolve(new PgSqlTransaction(client));
             return;
           })
@@ -25,5 +26,13 @@ export class PgSqlDataDriver extends PgSqlQueryable implements ISqlDataDriver {
           reject(err);
         });
     });
+  }
+
+  public end(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.pool.end(() => {
+        resolve()
+      });
+    }).then(() => { });
   }
 }

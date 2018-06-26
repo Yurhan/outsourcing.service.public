@@ -4,6 +4,7 @@ import { IQueryValueEscaper } from '../interfaces';
 import { SqlTableQueryBuilder } from './sql-table-query-builder';
 import { table } from './table-decorator';
 
+import * as TYPES from '../../../types';
 //COMPANY PARTNER SQL BUIDLER
 import { ICompanyPartner } from '../../../models';
 
@@ -20,7 +21,7 @@ import { ICompanyPartner } from '../../../models';
 })
 export class SqlCompanyPartnerQueryBuilder extends SqlTableQueryBuilder<ICompanyPartner> {
   constructor(
-    @inject(Symbol.for('IQueryValueEscaper')) queryValueEscaper: IQueryValueEscaper
+    @inject(TYPES.QUERY_VALUE_ESCAPER) queryValueEscaper: IQueryValueEscaper
   ) {
     super(queryValueEscaper);
   }
@@ -41,7 +42,7 @@ import { ICompanyServices } from '../../../models';
 })
 export class SqlCompanyServicesQueryBuilder extends SqlTableQueryBuilder<ICompanyServices> {
   constructor(
-    @inject(Symbol.for('IQueryValueEscaper')) queryValueEscaper: IQueryValueEscaper
+    @inject(TYPES.QUERY_VALUE_ESCAPER) queryValueEscaper: IQueryValueEscaper
   ) {
     super(queryValueEscaper);
   }
@@ -62,7 +63,7 @@ import { ICompanyInfo } from '../../../models';
 })
 export class SqlCompanyInfoQueryBuilder extends SqlTableQueryBuilder<ICompanyInfo> {
   constructor(
-    @inject(Symbol.for('IQueryValueEscaper')) queryValueEscaper: IQueryValueEscaper
+    @inject(TYPES.QUERY_VALUE_ESCAPER) queryValueEscaper: IQueryValueEscaper
   ) {
     super(queryValueEscaper);
   }
@@ -84,7 +85,7 @@ import { IJobVacancy } from '../../../models';
 })
 export class SqlJobVacancyQueryBuilder extends SqlTableQueryBuilder<IJobVacancy> {
   constructor(
-    @inject(Symbol.for('IQueryValueEscaper')) queryValueEscaper: IQueryValueEscaper
+    @inject(TYPES.QUERY_VALUE_ESCAPER) queryValueEscaper: IQueryValueEscaper
   ) {
     super(queryValueEscaper);
   }
@@ -108,13 +109,13 @@ import { IContact } from '../../../models';
 })
 export class SqlContactQueryBuilder extends SqlTableQueryBuilder<IContact> {
   constructor(
-    @inject(Symbol.for('IQueryValueEscaper')) queryValueEscaper: IQueryValueEscaper
+    @inject(TYPES.QUERY_VALUE_ESCAPER) queryValueEscaper: IQueryValueEscaper
   ) {
     super(queryValueEscaper);
   }
 }
 
-//JOB USER SQL BUIDLER
+//USER SQL BUIDLER
 import { IUser } from '../../../models';
 import { ISqlUserQueryBuilder, ISqlQuery } from '..';
 
@@ -129,7 +130,7 @@ import { ISqlUserQueryBuilder, ISqlQuery } from '..';
 export class SqlUserQueryBuilder extends SqlTableQueryBuilder<IUser> implements ISqlUserQueryBuilder {
 
   constructor(
-    @inject(Symbol.for('IQueryValueEscaper')) queryValueEscaper: IQueryValueEscaper
+    @inject(TYPES.QUERY_VALUE_ESCAPER) queryValueEscaper: IQueryValueEscaper
   ) {
     super(queryValueEscaper);
   }
@@ -141,5 +142,26 @@ export class SqlUserQueryBuilder extends SqlTableQueryBuilder<IUser> implements 
         login: login
       }
     };
+  }
+}
+
+//CONTACT SQL BUIDLER
+import { IPicture } from '../../../models';
+
+@injectable()
+@table<IPicture>('picture', {
+  id: {
+    primaryKey: true,
+    valueFunc: rec => rec.id
+  },
+  name: rec => rec.name,
+  mimeType: rec => rec.mimeType,
+  content: rec => rec.content
+})
+export class SqlPictureQueryBuilder extends SqlTableQueryBuilder<IPicture> {
+  constructor(
+    @inject(TYPES.QUERY_VALUE_ESCAPER) queryValueEscaper: IQueryValueEscaper
+  ) {
+    super(queryValueEscaper);
   }
 }

@@ -42,7 +42,7 @@ export class HomeComponent implements AfterViewInit {
   }
 
   public buildImageAddress(imageRef: string): string {
-    return `/static/${imageRef}`;
+    return `/static/user_pictures/${imageRef}`;
   }
 
   public showMobPhones(): boolean {

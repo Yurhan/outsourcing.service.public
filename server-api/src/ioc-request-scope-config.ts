@@ -15,10 +15,10 @@ import {
 } from './service/sql-data-access';
 
 function bindUnitOfWork(iocContainer: Kernel): void {
-  let sqlDriver = iocContainer.get<ISqlDataDriver>(Symbol.for('ISqlDataDriver'));
+  let sqlDriver = iocContainer.get<ISqlDataDriver>(TYPES.SQL_DATA_DRIVER);
   let unitOfWork = new UnitOfWork(sqlDriver);
-  iocContainer.bind<IUnitOfWork>(Symbol.for('IUnitOfWork')).toConstantValue(unitOfWork);
-  iocContainer.bind<IQueryableProvider>(Symbol.for('IQueryableProvider')).toConstantValue(unitOfWork);
+  iocContainer.bind<IUnitOfWork>(TYPES.UNIT_OF_WORK).toConstantValue(unitOfWork);
+  iocContainer.bind<IQueryableProvider>(TYPES.QUERY_PROVIDER).toConstantValue(unitOfWork);
 }
 
 //SERVICES
@@ -30,7 +30,9 @@ import {
   CompanyInfoService,
   CompanyPartnerService,
   JobVacancyService,
-  ContactService
+  ContactService,
+  IPictureService,
+  PictureService
 } from './service';
 import {
   ICompanyInfo,
@@ -42,11 +44,12 @@ import {
 
 function bindServices(kernel: Kernel): void {
   kernel.bind<IUserService>(TYPES.USER_SERVICE).to(UserService);
-  kernel.bind<IDataService<ICompanyInfo>>(Symbol.for('IDataService<ICompanyInfo>')).to(CompanyInfoService);
-  kernel.bind<IDataService<ICompanyPartner>>(Symbol.for('IDataService<ICompanyPartner>')).to(CompanyPartnerService);
-  kernel.bind<IDataService<ICompanyServices>>(Symbol.for('IDataService<ICompanyServices>')).to(CompanyServicesService);
-  kernel.bind<IDataService<IJobVacancy>>(Symbol.for('IDataService<IJobVacancy>')).to(JobVacancyService);
-  kernel.bind<IDataService<IContact>>(Symbol.for('IDataService<IContact>')).to(ContactService);
+  kernel.bind<IDataService<ICompanyInfo>>(TYPES.COMPANY_INFO_SERVICE).to(CompanyInfoService);
+  kernel.bind<IDataService<ICompanyPartner>>(TYPES.COMPANY_PARTNER_SERVICE).to(CompanyPartnerService);
+  kernel.bind<IDataService<ICompanyServices>>(TYPES.COMPANY_SERVICES_SERVICE).to(CompanyServicesService);
+  kernel.bind<IDataService<IJobVacancy>>(TYPES.JOB_VACANSY_SERVICE).to(JobVacancyService);
+  kernel.bind<IDataService<IContact>>(TYPES.CONTACT_SERVICE).to(ContactService);
+  kernel.bind<IPictureService>(TYPES.PICTURE_SERVICE).to(PictureService);
 }
 
 export function bindRequestScope(kernel: Kernel): void {

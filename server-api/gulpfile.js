@@ -53,3 +53,16 @@ gulp.task('run', ['compile'], () => {
     tasks: ['compile']
   })
 });
+
+/**
+ * restore pictures
+ */
+gulp.task('restore_pictures', ['compile'], () => {
+  return nodemon({
+    script: 'dist/src/restore-pictures.js',
+    watch: ['src/'],
+    ext: 'ts json',
+    env: { 'NODE_ENV': process.env.NODE_ENV || 'development' },
+    tasks: ['compile']
+  })
+});

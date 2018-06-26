@@ -116,16 +116,16 @@ export class AdminComponent implements AfterViewInit {
     let fileList: FileList = event.target.files;
     if (fileList.length > 0) {
       this.pictureService.uploadPicture(fileList[0])
-        .subscribe(pictureRef => {
+        .subscribe(picture => {
           console.log('Upload Successed');
-          console.log(pictureRef);
-          partner.imageRef = pictureRef;
+          console.log(picture);
+          partner.imageRef = picture.id;
         });
     }
   }
 
   public buildImageAddress(imageRef: string): string {
-    return `/static/${imageRef}`;
+    return `/static/user_pictures/${imageRef}`;
   }
 
   public submitCompanyInfo(): void {

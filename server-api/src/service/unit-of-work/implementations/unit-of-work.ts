@@ -26,7 +26,7 @@ export class UnitOfWork implements IUnitOfWork, IQueryableProvider {
     return this.beginTransaction()
       .then(() => action)
       .then(actionRes => Promise.all([Promise.resolve(actionRes), this.commit()]))
-      .then(([actionRes, commitRes]) => actionRes)
+      .then(([actionRes]) => actionRes)
       .catch((err) => {
         this.rollback();
         throw err;

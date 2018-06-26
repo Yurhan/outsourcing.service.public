@@ -29,7 +29,7 @@ export class PgSqlQueryable implements ISqlQueryable {
 
     return new Promise<TResult[]>((resolve, reject) => {
       let fixedSql: QueryConfig = yesql.pg(sql)(params);
-      let queryRes = this.queryExecutor.query(fixedSql, (err, res) => {
+      this.queryExecutor.query(fixedSql, (err, res) => {
         if (err) {
           reject(err);
         } else {

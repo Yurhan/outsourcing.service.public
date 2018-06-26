@@ -19,7 +19,8 @@
     "compile": "gulp compile",
     "start": "gulp run",
     "test": "gulp test",
-    "migrate": "db-migrate up"
+    "migrate": "db-migrate up",
+    "restore_pictures": "gulp restore_pictures"
   },
   "dependencies": {
     "@types/bluebird": "3.5.3",
