@@ -16,11 +16,15 @@ import * as companyServices from './actions/company-services';
 import * as jobVacancy from './actions/job-vacancy';
 import * as user from './actions/user';
 import * as test from './actions/test';
+import * as picture from './actions/picture';
+
+import * as fileUpload from 'express-fileupload';
 
 let app = express();
 
 auth.init(app, kernel);
 
+app.use(fileUpload());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -36,6 +40,7 @@ companyInfo.init(app);
 companyPartner.init(app);
 companyServices.init(app);
 jobVacancy.init(app);
+picture.init(app);
 user.init(app);
 test.init(app);
 swagger.init(app);

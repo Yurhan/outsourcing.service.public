@@ -37,7 +37,8 @@ const sqlUp = `
   CREATE TABLE companyPartner (
     "id"        SERIAL PRIMARY KEY,
     name       varchar(256) NOT NULL,
-    description  varchar(512) NULL
+    description  varchar(512) NULL,
+    "imageRef"  varchar(512) NULL
   );
 
   CREATE TABLE companyServices (
@@ -65,6 +66,7 @@ DROP TABLE companyInfo;
 DROP TABLE companyPartner;
 DROP TABLE companyServices;
 DROP TABLE jobVacancy;
+DROP TABLE contact
 `;
 
 exports.down = function (db) {

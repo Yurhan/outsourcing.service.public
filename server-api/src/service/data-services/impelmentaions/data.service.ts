@@ -139,6 +139,16 @@ export class CompanyPartnerService extends BaseDataService<ICompanyPartner> {
   ) {
     super(queryableProvider, queryBuilder, validator);
   }
+
+  protected convertDbRawtoResModel(recData: any): ICompanyPartner {
+    let res: ICompanyPartner = {
+      id: recData.id,
+      name: recData.name,
+      description: recData.description,
+      imageRef: recData.imageref
+    }
+    return res;
+  }
 }
 
 /// COMPANY SERVICES SERVICE

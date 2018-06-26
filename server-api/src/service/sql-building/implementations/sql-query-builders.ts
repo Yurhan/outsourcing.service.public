@@ -15,7 +15,8 @@ import { ICompanyPartner } from '../../../models';
     valueFunc: rec => rec.id
   },
   name: rec => rec.name,
-  description: rec => rec.description
+  description: rec => rec.description,
+  imageref: rec => rec.imageRef
 })
 export class SqlCompanyPartnerQueryBuilder extends SqlTableQueryBuilder<ICompanyPartner> {
   constructor(

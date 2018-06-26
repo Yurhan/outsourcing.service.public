@@ -41,6 +41,10 @@ export class HomeComponent implements AfterViewInit {
     return '';
   }
 
+  public buildImageAddress(imageRef: string): string {
+    return `/static/${imageRef}`;
+  }
+
   public showMobPhones(): boolean {
     return this.contact && this.contact.mobPhones && this.contact.mobPhones.length > 0;
   }

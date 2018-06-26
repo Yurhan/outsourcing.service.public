@@ -44,6 +44,7 @@ export class SqlTableQueryBuilder<TableModel> implements ISqlTableQueryBuilder<T
 
     query = sqlBuilder.join('');
 
+    console.log(query);
     return query;
   }
 
@@ -175,6 +176,9 @@ export class SqlTableQueryBuilder<TableModel> implements ISqlTableQueryBuilder<T
       value = value.toString().replace(/-/g, '');
       let res = this.queryValueEscaper.escape(value);
       return `UNHEX(${res})`;
+    }
+    if (value === null || value === undefined) {
+      return 'NULL';
     }
     if (typeof value == 'string') {
       value = `'${value}'`;

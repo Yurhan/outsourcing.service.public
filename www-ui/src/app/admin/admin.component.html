@@ -23,7 +23,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of companyInfo.partners">
+          <tr *ngFor="let item of companyInfo.partners;">
             <td>
               <input [(ngModel)]="item.name" [ngModelOptions]="{standalone: true}" placeholder="Назва"
                 type="text" />
@@ -31,6 +31,14 @@
             <td>
               <input [(ngModel)]="item.description" [ngModelOptions]="{standalone: true}" placeholder="Опис"
                 type="text" />
+            </td>
+            <td *ngIf="item.imageRef">
+              <img [src]="buildImageAddress(item.imageRef)" (error)="buildImageAddress(item.imageRef)"
+                height="42" width="42" />
+            </td>
+            <td>
+              <input type="file" (change)="pictureChange($event, item)" placeholder="Загрузити картинку"
+                accept=".png,.jpg" name="fileName" />
             </td>
             <td>
               <button type="button" (click)="removePartner(item.id)">Видалити</button>

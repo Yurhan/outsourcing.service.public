@@ -46,5 +46,7 @@ export function submitCompanyDetailedInfoRouteHandler(req: IAppRequest, res: IJs
   promises.push(companyPartnersService.submitList(companyInfo.partners));
   promises.push(jobVacanciesService.submitList(companyInfo.jobVacancies));
 
+  //TODO remove old not referanced pictures
+
   res.jsonPromise(unitOfWork.beginAutoCommitTransaction(Promise.all(promises)));
 }

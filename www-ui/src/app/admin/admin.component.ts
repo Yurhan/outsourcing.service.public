@@ -1,9 +1,10 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
-  CompanyInfoService
+  CompanyInfoService,
+  PictureService
 } from '../../services/apis';
-import { ICompanyDetailedInfo } from '../../models';
+import { ICompanyDetailedInfo, ICompanyPartner } from '../../models';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs';
 
@@ -21,6 +22,7 @@ export class AdminComponent implements AfterViewInit {
 
   constructor(
     private comapnyInfoApi: CompanyInfoService,
+    private pictureService: PictureService,
     private route: ActivatedRoute
   ) { }
 
@@ -108,6 +110,22 @@ export class AdminComponent implements AfterViewInit {
 
   public customTrackBy(index: number, obj: any): any {
     return index;
+  }
+
+  public pictureChange(event, partner: ICompanyPartner): void {
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      this.pictureService.uploadPicture(fileList[0])
+        .subscribe(pictureRef => {
+          console.log('Upload Successed');
+          console.log(pictureRef);
+          partner.imageRef = pictureRef;
+        });
+    }
+  }
+
+  public buildImageAddress(imageRef: string): string {
+    return `/static/${imageRef}`;
   }
 
   public submitCompanyInfo(): void {

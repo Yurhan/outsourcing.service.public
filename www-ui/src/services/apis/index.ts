@@ -10,3 +10,6 @@ export * from './user/user.service.d';
 
 export * from './goolge-map/google-map.service';
 export * from './goolge-map/google-map.service.d';
+
+export * from './picture/picture.service';
+export * from './picture/picture.service.d';
