@@ -7,6 +7,10 @@ export const SHA_CRYPTO_PROVIDER = Symbol.for('ISHACryptoProvider');
 export const FAST_SHA256 = Symbol.for('IFastSHA256');
 export const FILE_PROMISE = Symbol.for('IFilePromise');
 
+export const FILE_STORAGE = Symbol.for('IFileStorage');
+// export const LOCAL_STORAGE = Symbol.for('LocalStorage');
+// export const HEROKU_STORAGE = Symbol.for('HerokuStorage');
+
 export const UNIT_OF_WORK = Symbol.for('IUnitOfWork');
 export const DB_CONNECTION = Symbol.for('IDbConnection');
 export const TRANSACTION_PROVIDER = Symbol.for('ITransactionProvider');

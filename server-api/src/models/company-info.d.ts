@@ -10,10 +10,12 @@ import {
   IJobVacancy,
   IContact
 } from '.';
+import { IBasePicture } from './picture';
 
 export interface ICompanyDetailedInfo extends ICompanyInfo {
   partners: ICompanyPartner[];
   jobVacancies: IJobVacancy[];
   services: ICompanyServices[];
-  contact: IContact
+  contact: IContact,
+  pictures: IBasePicture[]
 }

@@ -120,12 +120,9 @@ export class AdminComponent implements AfterViewInit {
           console.log('Upload Successed');
           console.log(picture);
           partner.imageRef = picture.id;
+          partner.imageAddress = picture.pictureAddress;
         });
     }
-  }
-
-  public buildImageAddress(imageRef: string): string {
-    return `/static/user_pictures/${imageRef}`;
   }
 
   public submitCompanyInfo(): void {

@@ -9,5 +9,5 @@ export function getCompanyInfoRouteHandler(req: IAppRequest, res: IJsonResponse)
   logger.info('GET ALL /CompanyInfo');
   let service = req.kernel.get<IDataService<ICompanyInfo>>(Symbol.for('IDataService<ICompanyInfo>'));
 
-  res.jsonPromise(service.getAll().then(res => res[0]));
+  res.jsonPromise(service.getAll().then(list => list[0]));
 }

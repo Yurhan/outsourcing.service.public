@@ -17,7 +17,7 @@ bindRequestScope(kernel);
     companyPartnerService.getAll()
       .then(partners => {
         let imgIds = partners.map(p => p.imageRef).filter(img => img && img.trim() !== '');
-        return pictureService.deleteUnAssigned(imgIds);
+        return pictureService.deleteUnAssigned(<string[]>imgIds);
       })
       .then(() => pictureService.copyAllToStorage())
   )

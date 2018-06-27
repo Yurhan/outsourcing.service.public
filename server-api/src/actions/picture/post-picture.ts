@@ -17,5 +17,6 @@ export function postPictureHandler(req: IAppRequest, res: IJsonResponse): void {
 
   let service = req.kernel.get<IPictureService>(TYPES.PICTURE_SERVICE);
   let unitOfWork = req.kernel.get<IUnitOfWork>(TYPES.UNIT_OF_WORK);
-  res.jsonPromise(unitOfWork.beginAutoCommitTransaction(service.upload(req.files.upload)));
+  let file: any = req.files.upload;
+  res.jsonPromise(unitOfWork.beginAutoCommitTransaction(service.upload(file.name, file.mimetype, file.data)));
 }

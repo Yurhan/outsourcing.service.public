@@ -108,6 +108,18 @@ kernel.bind<IFastSHA256>(TYPES.FAST_SHA256).toConstantValue({ hash: fastSHA256.h
 kernel.bind<ISHACryptoProvider>(TYPES.SHA_CRYPTO_PROVIDER).to(SHACryptoProvider).inSingletonScope;
 kernel.bind<IFilePromise>(TYPES.FILE_PROMISE).to(FilePromise).inSingletonScope;
 
+import {
+  IFileStorage,
+  LocalStorage,
+  HerokuStorage
+} from './service/storage';
+
+// //For local testing
+// kernel.bind<IFileStorage>(TYPES.FILE_STORAGE).to(LocalStorage);
+
+//For production
+kernel.bind<IFileStorage>(TYPES.FILE_STORAGE).to(HerokuStorage);
+
 // //CACHE
 // import {
 //   ICache,

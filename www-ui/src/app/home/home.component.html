@@ -26,10 +26,8 @@
 
     <page-layout id="partners" class="partners-conteiner" title="ПАРТНЕРИ">
       <div *ngFor="let item of companyInfo.partners" class="partner">
-        <span class="name">{{item.name}}</span>
-        <span class="description">{{item.description}}</span>
-        <img *ngIf="item.imageRef" [src]="buildImageAddress(item.imageRef)" height="128"
-          width="128" />
+        <img *ngIf="item.imageAddress" [src]="item.imageAddress" height="128" width="200"
+        />
       </div>
     </page-layout>
 

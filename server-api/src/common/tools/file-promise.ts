@@ -5,9 +5,6 @@ import * as fs from 'fs';
 
 export interface IFilePromise {
 
-  //this method supports only if express-fileuploader inluded in project
-  moveFile(path: string, file: any): Promise<void>;
-
   createDirIfNotExists(dirPath: string): Promise<void>;
   getFileNames(dirPath: string): Promise<string[]>;
   unLinkFile(path: string): Promise<void>;
@@ -18,26 +15,6 @@ export interface IFilePromise {
 
 @injectable()
 export class FilePromise implements IFilePromise {
-
-  public moveFile(path: string, file: any): Promise<void> {
-
-    if (!path || path.trim() === '') {
-      return Promise.reject('File path is required');
-    }
-
-    if (!file || !file.mv) {
-      return Promise.reject('File obj is invalid');
-    }
-
-    return new Promise((resolve, reject) => {
-      file.mv(path, (err) => {
-        if (err) {
-          reject(err);
-        }
-        resolve();
-      });
-    }).then(() => { });
-  }
 
   public createFilesIfNotExists(files: { path: string, data: Buffer }[]): Promise<void> {
     let promises = files.map(file => {

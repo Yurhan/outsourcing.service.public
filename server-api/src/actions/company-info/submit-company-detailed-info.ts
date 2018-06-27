@@ -46,17 +46,10 @@ export function submitCompanyDetailedInfoRouteHandler(req: IAppRequest, res: IJs
   );
 
   promises.push(companyServicesService.submitList(companyInfo.services));
-  promises.push(companyPartnersService.submitList(companyInfo.partners));
   promises.push(jobVacanciesService.submitList(companyInfo.jobVacancies));
 
-  res.jsonPromise(
-    unitOfWork.beginAutoCommitTransaction(
-      Promise.all(promises)
-        .then(() => companyPartnersService.getAll())
-        .then((partners) => {
-          let imgIds = partners.map(p => p.imageRef).filter(img => img && img.trim() !== '');
-          return pictureService.deleteUnAssigned(imgIds);
-        })
-    )
-  );
+  res.jsonPromise(unitOfWork.beginAutoCommitTransaction(
+    Promise.all(promises)
+      .then(() => companyPartnersService.submitList(companyInfo.partners))
+  ));
 }

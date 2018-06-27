@@ -8,19 +8,21 @@ import {
   ICompanyServices,
   IJobVacancy,
   ICompanyDetailedInfo,
-  IContact
+  IContact,
+  IPicture
 } from '../../models';
 import * as TYPES from '../../types';
+import { IPictureService } from '../../service';
 // import { NotFoundError } from '../../common';
 
 export function getCompanyDetailedInfoRouteHandler(req: IAppRequest, res: IJsonResponse): void {
   let logger = req.kernel.get<ILoggerFactory>(TYPES.LOGGER_FACTORY).getLogger('actions.timer.getCompanyInfoRouteHandler');
   logger.info('GET ALL /CompanyInfoDetails');
-  let companyInfoservice = req.kernel.get<IDataService<ICompanyInfo>>(Symbol.for('IDataService<ICompanyInfo>'));
-  let companyPartnerservice = req.kernel.get<IDataService<ICompanyPartner>>(Symbol.for('IDataService<ICompanyPartner>'));
-  let companyServicesService = req.kernel.get<IDataService<ICompanyServices>>(Symbol.for('IDataService<ICompanyServices>'));
-  let jobVacancyservice = req.kernel.get<IDataService<IJobVacancy>>(Symbol.for('IDataService<IJobVacancy>'));
-  let contactService = req.kernel.get<IDataService<IContact>>(Symbol.for('IDataService<IContact>'));
+  let companyInfoservice = req.kernel.get<IDataService<ICompanyInfo>>(TYPES.COMPANY_INFO_SERVICE);
+  let companyPartnerservice = req.kernel.get<IDataService<ICompanyPartner>>(TYPES.COMPANY_PARTNER_SERVICE);
+  let companyServicesService = req.kernel.get<IDataService<ICompanyServices>>(TYPES.COMPANY_SERVICES_SERVICE);
+  let jobVacancyservice = req.kernel.get<IDataService<IJobVacancy>>(TYPES.JOB_VACANSY_SERVICE);
+  let contactService = req.kernel.get<IDataService<IContact>>(TYPES.CONTACT_SERVICE);
 
   res.jsonPromise(
     Promise.all([
@@ -28,7 +30,7 @@ export function getCompanyDetailedInfoRouteHandler(req: IAppRequest, res: IJsonR
       companyPartnerservice.getAll(),
       companyServicesService.getAll(),
       jobVacancyservice.getAll(),
-      contactService.getAll()
+      contactService.getAll(),
     ])
       .then(([info, partners, services, vacancies, contacts]) => {
         // if (!info) {

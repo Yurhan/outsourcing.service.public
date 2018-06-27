@@ -29,12 +29,11 @@
                 type="text" />
             </td>
             <td>
-              <input [(ngModel)]="item.description" [ngModelOptions]="{standalone: true}" placeholder="Опис"
-                type="text" />
+              <textarea [(ngModel)]="item.description" [ngModelOptions]="{standalone: true}" placeholder="Опис"
+                type="text"></textarea>
             </td>
-            <td *ngIf="item.imageRef">
-              <img [src]="buildImageAddress(item.imageRef)" (error)="buildImageAddress(item.imageRef)"
-                height="42" width="42" />
+            <td *ngIf="item.imageAddress">
+              <img [src]="item.imageAddress" height="42" width="42" />
             </td>
             <td>
               <input type="file" (change)="pictureChange($event, item)" placeholder="Загрузити картинку"
@@ -65,8 +64,8 @@
                 type="text" />
             </td>
             <td>
-              <input [(ngModel)]="item.description" [ngModelOptions]="{standalone: true}" placeholder="Опис"
-                type="text" />
+              <textarea [(ngModel)]="item.description" [ngModelOptions]="{standalone: true}" placeholder="Опис"
+                type="text"></textarea>
             </td>
             <td>
               <button type="button" (click)="removeService(item.id)">Видалити</button>
@@ -94,8 +93,8 @@
                 Назва " type="text " />
             </td>
             <td>
-              <input [(ngModel)]="item.description " [ngModelOptions]="{standalone: true}" placeholder="Опис"
-                type="text" />
+              <textarea [(ngModel)]="item.description " [ngModelOptions]="{standalone: true}" placeholder="Опис"
+                type="text"></textarea>
             </td>
             <td>
               <select [(ngModel)]="item.gender" [ngModelOptions]="{standalone: true}" placeholder="

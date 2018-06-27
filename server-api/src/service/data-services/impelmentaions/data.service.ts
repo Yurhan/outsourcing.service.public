@@ -20,6 +20,8 @@ import {
   IBaseTableModelValidator
 } from '../../validation';
 
+import * as TYPES from '../../../types';
+
 @injectable()
 export class BaseDataService<TData> implements IDataService<TData> {
 
@@ -133,11 +135,20 @@ import {
 
 export class CompanyPartnerService extends BaseDataService<ICompanyPartner> {
   constructor(
-    @inject(Symbol.for('IQueryableProvider')) queryableProvider: IQueryableProvider,
-    @inject(Symbol.for('ISqlTableQueryBuilder<ICompanyPartner>')) queryBuilder: ISqlTableQueryBuilder<ICompanyPartner>,
-    @inject(Symbol.for('IBaseTableModelValidator<ICompanyPartner>')) validator: IBaseTableModelValidator<ICompanyPartner>,
+    @inject(TYPES.QUERY_PROVIDER) queryableProvider: IQueryableProvider,
+    @inject(TYPES.COMPANY_PARTNER_QUERY_BUILDER) queryBuilder: ISqlTableQueryBuilder<ICompanyPartner>,
+    @inject(TYPES.COMPANY_PARTNER_VALIDATOR) validator: IBaseTableModelValidator<ICompanyPartner>,
+    @inject(TYPES.PICTURE_SERVICE) private readonly pictureService: IPictureService
   ) {
     super(queryableProvider, queryBuilder, validator);
+  }
+
+  public submitList(list: ICompanyPartner[]): Promise<void> {
+    return super.submitList(list) //validation here
+      .then(() => {
+        let imgIds = list.map(p => p.imageRef).filter(img => img && img.trim() !== '');
+        return this.pictureService.deleteUnAssigned(<string[]>imgIds);
+      })
   }
 
   protected convertDbRawtoResModel(recData: any): ICompanyPartner {
@@ -146,6 +157,9 @@ export class CompanyPartnerService extends BaseDataService<ICompanyPartner> {
       name: recData.name,
       description: recData.description,
       imageRef: recData.imageref
+    }
+    if (recData.imageref) {
+      res.imageAddress = this.pictureService.getPictureAddress(recData.imageref);
     }
     return res;
   }
@@ -209,6 +223,7 @@ export class CompanyInfoService extends BaseDataService<ICompanyInfo> {
 import {
   IContact
 } from '../../../models';
+import { IPictureService } from '../../picture';
 
 export class ContactService extends BaseDataService<IContact> {
   constructor(

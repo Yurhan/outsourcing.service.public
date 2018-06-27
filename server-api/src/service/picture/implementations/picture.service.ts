@@ -2,34 +2,37 @@ import * as Promise from 'bluebird';
 import { inject, injectable } from 'inversify';
 import { IPicture, IBasePicture } from '../../../models';
 import { IPictureService } from '..';
-import * as path from 'path';
 import * as uuid from 'node-uuid';
 
 import { IQueryableProvider } from '../../unit-of-work';
 
 import * as TYPES from '../../../types';
-import { IFilePromise } from '../../../common';
+import { IFileStorage } from '../../storage';
 
 @injectable()
 export class PictureService implements IPictureService {
 
+  private readonly CONTAINER_NAME = 'user_pictures';
+
   constructor(
-    @inject(TYPES.FILE_PROMISE) private readonly filePromise: IFilePromise,
+    @inject(TYPES.FILE_STORAGE) private readonly fileStorage: IFileStorage,
     @inject(TYPES.QUERY_PROVIDER) private readonly queryableProvider: IQueryableProvider// ,
     // @inject(Symbol.for('ISqlUserQueryBuilder')) private readonly queryBuilder: ISqlUserQueryBuilder
   ) { }
 
-  public upload(file: any): Promise<IBasePicture> {
+  public upload(name: string, mimeType: string, content: Buffer): Promise<IBasePicture> {
 
+    let id = uuid.v4();
     let picture: IPicture = {
-      id: `${uuid.v4()}_${file.name}`,
-      name: file.name,
-      mimeType: file.mimetype,
-      content: file.data
+      id: id,
+      name: name,
+      mimeType: mimeType,
+      content: content,
+      pictureAddress: this.getPictureAddress(id)
     }
 
     return this.addPicture(picture)
-      .then(() => this.moveFileToStorage(picture.id, file))
+      .then(() => this.fileStorage.addFile(this.CONTAINER_NAME, picture.id, content))
       .then(() => {
         delete picture.content;
         return picture;
@@ -48,7 +51,7 @@ export class PictureService implements IPictureService {
     }
 
     return this.deleteUnAssignedRecordsByIds(assignedIds)
-      .then(() => this.deleteUnAssignedFiles(assignedIds));
+      .then(() => this.fileStorage.removeFiles(this.CONTAINER_NAME, assignedIds));
   }
 
   public getAll(): Promise<IPicture[]> {
@@ -60,7 +63,8 @@ export class PictureService implements IPictureService {
             id: rec.id,
             name: rec.name,
             mimeType: rec.mimetype,
-            content: rec.content
+            content: rec.content,
+            pictureAddress: this.getPictureAddress(rec.id)
           }
           return res;
         });
@@ -72,13 +76,31 @@ export class PictureService implements IPictureService {
     return this.getAll()
       .then(pictures => {
         if (pictures.length > 0) {
-          return this.filePromise.createDirIfNotExists(this.getDirAddress())
-            .then(() => {
-              let files = pictures.map(p => ({ path: this.getFileAddress(p.id), data: p.content }))
-              return this.filePromise.createFilesIfNotExists(files)
-            })
+          let files = pictures.map(p => ({ identifier: p.id, data: p.content }));
+          return this.fileStorage.addFiles(this.CONTAINER_NAME, files);
         }
       })
+  }
+
+  public getPictureAddress(id: string): string {
+    return this.fileStorage.getFileUrlAddress(this.CONTAINER_NAME, id);
+  }
+
+  public getById(id: string): Promise<IPicture> {
+    let sqlQuery = `SELECT * FROM "picture" WHERE id =:id`;
+    return this.queryableProvider.getQueryable()
+      .querySingle(sqlQuery, { id: id })
+      .then((res: any) => this.convertDbToPicture(res));
+  }
+
+  private convertDbToPicture(rec: any): IPicture {
+    return {
+      id: rec.id,
+      name: rec.name,
+      mimeType: rec.mimetype,
+      content: rec.content,
+      pictureAddress: this.getPictureAddress(rec.id)
+    }
   }
 
   private deleteUnAssignedRecordsByIds(ids: string[]): Promise<void> {
@@ -98,21 +120,6 @@ export class PictureService implements IPictureService {
     return this.queryableProvider.getQueryable().query(sqlQuery, params).then(() => { });
   }
 
-  private deleteUnAssignedFiles(assignedIds: string[]): Promise<void> {
-    if (!assignedIds || assignedIds.length === 0) {
-      console.log('Was here deleteFiles ', assignedIds);
-      return Promise.resolve();
-    }
-
-    return this.filePromise.getFileNames(this.getDirAddress())
-      .then((fileNames) => {
-        let pathes = fileNames
-          .filter(fName => assignedIds.indexOf(fName) < 0)
-          .map(fName => this.getFileAddress(fName));
-        return this.filePromise.unLinkFiles(pathes);
-      });
-  }
-
   private addPicture(picture: IPicture): Promise<void> {
     //TODO add picture to db
     let sqlQuery = `INSERT INTO "picture"("id", "name", "mimetype", "content")
@@ -126,18 +133,5 @@ export class PictureService implements IPictureService {
     }
 
     return this.queryableProvider.getQueryable().query(sqlQuery, params).then(() => { });
-  }
-
-  private getDirAddress(): string {
-    return path.join(path.dirname(process.env.INIT_CWD), '\\www-ui\\src\\static\\user_pictures');
-  }
-
-  private getFileAddress(fileName: string): string {
-    return path.join(this.getDirAddress(), fileName);
-  }
-
-  private moveFileToStorage(id: string, file: any): Promise<void> {
-    return this.filePromise.createDirIfNotExists(this.getDirAddress())
-      .then(() => this.filePromise.moveFile(this.getFileAddress(id), file));
   }
 }
