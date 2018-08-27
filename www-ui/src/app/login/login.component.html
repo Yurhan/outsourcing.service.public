@@ -6,18 +6,5 @@
     <input id="pass" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="password"
       type="password" />
     <button type="submit">Login</button>
-    <a (click)="registerForm=true" class="action-link">Sign Up</a>
-  </form>
-  <form class="register" *ngIf="registerForm" (submit)="register()">
-    <input id="email" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" placeholder="login"
-    />
-    <input id="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}"
-      placeholder="password" />
-    <input id="firstname" [(ngModel)]="firstname" [ngModelOptions]="{standalone: true}"
-      placeholder="first name" />
-    <input id="lastname" [(ngModel)]="lastname" [ngModelOptions]="{standalone: true}"
-      placeholder="second name" />
-    <button type="submit">Register</button>
-    <a (click)="registerForm=false" class="action-link">Sign In</a>
   </form>
 </div>
