@@ -20,6 +20,6 @@ export function postCompanyPartnerRouteHandler(req: IAppRequest, res: IJsonRespo
   // }
 
   res.jsonPromise(
-    unitOfWork.beginAutoCommitTransaction(service.updateList(partners))
+    unitOfWork.beginAutoCommitTransaction(() => service.updateList(partners))
   );
 }

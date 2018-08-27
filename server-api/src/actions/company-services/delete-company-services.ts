@@ -20,6 +20,6 @@ export function deleteCompanyServicesRouteHandler(req: IAppRequest, res: IJsonRe
   }
 
   res.jsonPromise(
-    unitOfWork.beginAutoCommitTransaction(service.deleteList([<ICompanyServices>{ id: id }]))
+    unitOfWork.beginAutoCommitTransaction(() => service.deleteList([<ICompanyServices>{ id: id }]))
   );
 }

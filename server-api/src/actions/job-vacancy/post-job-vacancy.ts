@@ -20,6 +20,6 @@ export function postJobVacancyRouteHandler(req: IAppRequest, res: IJsonResponse)
   // }
 
   res.jsonPromise(
-    unitOfWork.beginAutoCommitTransaction(service.updateList(partners))
+    unitOfWork.beginAutoCommitTransaction(() => service.updateList(partners))
   );
 }

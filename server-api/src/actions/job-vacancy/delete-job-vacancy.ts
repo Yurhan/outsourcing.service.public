@@ -20,6 +20,6 @@ export function deleteJobVacancyRouteHandler(req: IAppRequest, res: IJsonRespons
   }
 
   res.jsonPromise(
-    unitOfWork.beginAutoCommitTransaction(service.deleteList([<IJobVacancy>{ id: id }]))
+    unitOfWork.beginAutoCommitTransaction(() => service.deleteList([<IJobVacancy>{ id: id }]))
   );
 }

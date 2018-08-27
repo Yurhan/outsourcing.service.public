@@ -14,7 +14,7 @@ export function getRegisterUserRouteHandler(req: express.Request, res: express.R
   let service = kernel.get<IUserService>(TYPES.USER_SERVICE);
   let unitOfWork = kernel.get<IUnitOfWork>(TYPES.UNIT_OF_WORK);
 
-  unitOfWork.beginAutoCommitTransaction<express.Response>(
+  unitOfWork.beginAutoCommitTransaction<express.Response>(() =>
     service.createUser(login, password)
       .then(u => {
         //res.redirect(redirectUrl);

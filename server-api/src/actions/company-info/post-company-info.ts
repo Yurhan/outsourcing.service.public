@@ -14,5 +14,5 @@ export function postCompanyInfoRouteHandler(req: IAppRequest, res: IJsonResponse
 
   let companyInfo: ICompanyInfo = req.body;
 
-  res.jsonPromise(unitOfWork.beginAutoCommitTransaction(service.update(companyInfo)));
+  res.jsonPromise(unitOfWork.beginAutoCommitTransaction(() => service.update(companyInfo)));
 }

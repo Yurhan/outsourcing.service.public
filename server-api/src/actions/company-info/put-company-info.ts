@@ -19,5 +19,5 @@ export function putCompanyInfoRouteHandler(req: IAppRequest, res: IJsonResponse)
   //   return;
   // }
 
-  res.jsonPromise(unitOfWork.beginAutoCommitTransaction(service.add(companyInfo)));
+  res.jsonPromise(unitOfWork.beginAutoCommitTransaction(() => service.add(companyInfo)));
 }

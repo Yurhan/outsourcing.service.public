@@ -22,9 +22,9 @@ export class UnitOfWork implements IUnitOfWork, IQueryableProvider {
   ) {
   }
 
-  public beginAutoCommitTransaction<TData>(action: Promise<TData>): Promise<TData> {
+  public beginAutoCommitTransaction<TData>(action: () => Promise<TData>): Promise<TData> {
     return this.beginTransaction()
-      .then(() => action)
+      .then(() => action())
       .then(actionRes => Promise.all([Promise.resolve(actionRes), this.commit()]))
       .then(([actionRes]) => actionRes)
       .catch((err) => {

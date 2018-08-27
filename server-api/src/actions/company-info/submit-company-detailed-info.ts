@@ -32,24 +32,24 @@ export function submitCompanyDetailedInfoRouteHandler(req: IAppRequest, res: IJs
 
   //TODO validation
 
-  let promises: Promise<any>[] = [];
-  promises.push(
-    companyInfo.id > 0
-      ? companyInfoService.update(companyInfo)
-      : companyInfoService.add(companyInfo)
-  );
+  let tranAction = () => {
+    let promises: Promise<any>[] = [];
+    promises.push(
+      companyInfo.id > 0
+        ? companyInfoService.update(companyInfo)
+        : companyInfoService.add(companyInfo)
+    );
 
-  promises.push(
-    companyInfo.contact.id > 0
-      ? contactService.update(companyInfo.contact)
-      : contactService.add(companyInfo.contact)
-  );
+    promises.push(
+      companyInfo.contact.id > 0
+        ? contactService.update(companyInfo.contact)
+        : contactService.add(companyInfo.contact)
+    );
 
-  promises.push(companyServicesService.submitList(companyInfo.services));
-  promises.push(jobVacanciesService.submitList(companyInfo.jobVacancies));
+    promises.push(companyServicesService.submitList(companyInfo.services));
+    promises.push(jobVacanciesService.submitList(companyInfo.jobVacancies));
+    return Promise.all(promises).then(() => companyPartnersService.submitList(companyInfo.partners))
+  }
 
-  res.jsonPromise(unitOfWork.beginAutoCommitTransaction(
-    Promise.all(promises)
-      .then(() => companyPartnersService.submitList(companyInfo.partners))
-  ));
+  res.jsonPromise(unitOfWork.beginAutoCommitTransaction(tranAction));
 }
