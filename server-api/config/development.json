@@ -1,0 +1,15 @@
+{
+  "port": 1400,
+  "dbConfig": {
+    "user": "postgres",
+    "password": "yurshmir90",
+    "host": "localhost",
+    "database": "outsource_service"
+  },
+  "loggerConfig": {
+    "logWriterType": "CONSOLE"
+  },
+  "cacheOptions": {
+    "host": "localhost"
+  }
+}

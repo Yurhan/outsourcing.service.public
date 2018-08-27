@@ -1,0 +1,15 @@
+{
+  "port": "API_PORT",
+  "dbConfig": {
+    "user": "DB_USER",
+    "password": "DB_PASSWORD",
+    "host": "DB_HOST",
+    "database": "DB_DATABASE"
+  },
+  "loggerConfig": {
+    "logWriterType": "LOGGER_TYPE"
+  },
+  "cacheOptions": {
+    "host": "CACHE_OPTIONS_HOST"
+  }
+}

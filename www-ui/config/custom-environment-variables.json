@@ -1,0 +1,5 @@
+{
+  "port": "UI_PORT",
+  "proxyPort": "PROXY_PORT",
+  "googleMapApiKey": "GOOGLE_MAP_API_KEY"
+}

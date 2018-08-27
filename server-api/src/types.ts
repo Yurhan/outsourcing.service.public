@@ -47,5 +47,4 @@ export const LOG_BUILDER = Symbol.for('ILogBuilder');
 
 export const CACHE = Symbol.for('ICache');
 
-export const MOCK_USER = Symbol.for('IMockUser');
 export const USER_CONTEXT = Symbol.for('IUserContext');

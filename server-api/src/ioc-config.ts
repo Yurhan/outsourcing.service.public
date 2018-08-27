@@ -76,19 +76,24 @@ import * as pg from 'pg';
 import { ISqlDataDriver, PgSqlDataDriver } from './service/sql-data-access';
 
 
-let sqlConfig: pg.PoolConfig;
-console.log(process.env);
-if (process.env.NODE_ENV === 'production') {
-  sqlConfig = {
-    host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE_NAME
-  }
+// let sqlConfig: pg.PoolConfig;
+// console.log(process.env);
+// if (process.env.NODE_ENV === 'production') {
+//   sqlConfig = {
+//     host: process.env.DATABASE_HOST,
+//     user: process.env.DATABASE_USER,
+//     password: process.env.DATABASE_PASSWORD,
+//     database: process.env.DATABASE_NAME
+//   }
 
-} else {
-  sqlConfig = kernel.get<IConfig>(TYPES.CONFIG).get<pg.PoolConfig>('dbConfig');
-}
+// } else {
+//   sqlConfig = kernel.get<IConfig>(TYPES.CONFIG).get<pg.PoolConfig>('dbConfig');
+// }
+
+let sqlConfig: pg.PoolConfig = kernel.get<IConfig>(TYPES.CONFIG).get<pg.PoolConfig>('dbConfig');
+
+console.log(sqlConfig);
+
 let pool = new pg.Pool(sqlConfig);
 
 kernel.bind<ISqlDataDriver>(TYPES.SQL_DATA_DRIVER).toConstantValue(new PgSqlDataDriver(pool));
