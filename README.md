@@ -1,7 +1,5 @@
-# medical-tool
+# outsource-service
 
-* db - migrations folder
-* import - import cli tool
 * server-api - server side
 * www-ui - client side
 
@@ -27,7 +25,7 @@ server {
     proxy_set_header X-NginX-Proxy true;
 
     # Proxy Settings
-    proxy_redirect off; 
+    proxy_redirect off;
     proxy_buffering off;
 
     # UI
