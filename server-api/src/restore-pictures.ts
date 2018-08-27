@@ -13,7 +13,7 @@ bindRequestScope(kernel);
   let companyPartnerService = kernel.get<IDataService<ICompanyPartner>>(TYPE.COMPANY_PARTNER_SERVICE);
   let unitOfWork = kernel.get<IUnitOfWork>(TYPE.UNIT_OF_WORK);
   let sqlDriver = kernel.get<ISqlDataDriver>(TYPE.SQL_DATA_DRIVER);
-  unitOfWork.beginAutoCommitTransaction(
+  unitOfWork.beginAutoCommitTransaction(() =>
     companyPartnerService.getAll()
       .then(partners => {
         let imgIds = partners.map(p => p.imageRef).filter(img => img && img.trim() !== '');
