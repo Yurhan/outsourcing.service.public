@@ -15,7 +15,6 @@ function groupeBy<T, K>(list: T[], groupeBySelector: (key: T) => K): { key: K, v
 
   list.forEach(x => {
     let key: any = groupeBySelector(x);
-   
     let item = res.find(y => y.key === key);
     if (!item) {
       item = { key: key, values: []};
@@ -38,7 +37,7 @@ const GenderMap = {
 const DescriptionMap = {
   'Requirements': 'Основні вимоги',
   'Responsibilities': `Обов'язки`
-}
+};
 
 interface IGroupedJobVcancies {
   title: string;
@@ -102,7 +101,7 @@ export class HomeComponent implements AfterViewInit {
 
   private groupeVacancies(jobVacancies: IJobVacancy[]): IGroupedJobVcancies[] {
     if (jobVacancies) {
-      
+
       return groupeBy(jobVacancies, x => x.gender)
        .map(x => ({
          gender: x.key,

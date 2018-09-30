@@ -26,15 +26,16 @@ export function getCompanyDetailedInfoRouteHandler(req: IAppRequest, res: IJsonR
   let contactService = req.kernel.get<IDataService<IContact>>(TYPES.CONTACT_SERVICE);
   let jobVacancyDescRecordService = req.kernel.get<IDataService<IJobVacancyDescriptionRecord>>(TYPES.JOB_VACANCY_DESCRIPTION_RECORD_SERVICE);
 
-  res.jsonPromise(
-    Promise.all<any>([
-      companyInfoservice.getAll(),
-      companyPartnerservice.getAll(),
-      companyServicesService.getAll(),
-      jobVacancyservice.getAll(),
-      contactService.getAll(),
-      jobVacancyDescRecordService.getAll()
-    ])
+  let promises: Promise<any>[] = [
+    companyInfoservice.getAll(),
+    companyPartnerservice.getAll(),
+    companyServicesService.getAll(),
+    jobVacancyservice.getAll(),
+    contactService.getAll(),
+    jobVacancyDescRecordService.getAll()
+  ];
+
+  res.jsonPromise(Promise.all<any>(promises)
       .then(([info, partners, services, vacancies, contacts, jobDescriptions]) => {
         // if (!info) {
         //   throw new NotFoundError('Company Info');
