@@ -91,6 +91,29 @@ export class SqlJobVacancyQueryBuilder extends SqlTableQueryBuilder<IJobVacancy>
   }
 }
 
+//JOB VACANCY SQL BUIDLER
+import { IJobVacancyDescriptionRecord } from '../../../models';
+
+@injectable()
+@table<IJobVacancyDescriptionRecord>('job_vacancy_description_record', {
+  id: {
+    primaryKey: true,
+    autoIncrement: true,
+    valueFunc: rec => rec.id
+  },
+  jobVacancyId: rec => (<any>rec).job_vacancy,
+  description: rec => rec.description,
+  type: rec => rec.type
+})
+export class SqlJobVacancyDescriptionRecordQueryBuilder extends SqlTableQueryBuilder<IJobVacancyDescriptionRecord> {
+  constructor(
+    @inject(TYPES.QUERY_VALUE_ESCAPER) queryValueEscaper: IQueryValueEscaper
+  ) {
+    super(queryValueEscaper);
+  }
+}
+
+
 
 //CONTACT SQL BUIDLER
 import { IContact } from '../../../models';

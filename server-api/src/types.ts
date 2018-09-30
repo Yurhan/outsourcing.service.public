@@ -23,6 +23,8 @@ export const COMPANY_INFO_SERVICE = Symbol.for('IDataService<ICompanyInfo>');
 export const COMPANY_PARTNER_SERVICE = Symbol.for('IDataService<ICompanyPartner>');
 export const COMPANY_SERVICES_SERVICE = Symbol.for('IDataService<ICompanyServices>');
 export const JOB_VACANSY_SERVICE = Symbol.for('IDataService<IJobVacancy>');
+export const JOB_VACANCY_DESCRIPTION_RECORD_SERVICE = Symbol.for('IDataService<IJobVacancyDescriptionRecord>');
+
 export const CONTACT_SERVICE = Symbol.for('IDataService<IContact>');
 export const PICTURE_SERVICE = Symbol.for('IPictureService');
 
@@ -31,6 +33,7 @@ export const COMPANY_INFO_QUERY_BUILDER = Symbol.for('ISqlTableQueryBuilder<ICom
 export const COMPANY_PARTNER_QUERY_BUILDER = Symbol.for('ISqlTableQueryBuilder<ICompanyPartner>');
 export const COMPANY_SERVICES_QUERY_BUILDER = Symbol.for('ISqlTableQueryBuilder<ICompanyServices>');
 export const JOB_VACANCY_QUERY_BUILDER = Symbol.for('ISqlTableQueryBuilder<IJobVacancy>');
+export const JOB_VACANCY_DESCRIPTION_RECORD_QUERY_BUILDER = Symbol.for('ISqlTableQueryBuilder<IJobVacancyDescriptionRecord>');
 export const CONTACT_QUERY_BUILDER = Symbol.for('ISqlTableQueryBuilder<IContact>');
 export const USER_QUERY_BUILDER = Symbol.for('ISqlUserQueryBuilder');
 export const QUERY_VALUE_ESCAPER = Symbol.for('IQueryValueEscaper');
@@ -40,6 +43,7 @@ export const COMPANY_INFO_VALIDATOR = Symbol.for('IBaseTableModelValidator<IComp
 export const COMPANY_PARTNER_VALIDATOR = Symbol.for('IBaseTableModelValidator<ICompanyPartner>');
 export const COMPANY_SERVICES_VALIDATOR = Symbol.for('IBaseTableModelValidator<ICompanyServices>');
 export const JOB_VACANCY_VALIDATOR = Symbol.for('IBaseTableModelValidator<IJobVacancy>');
+export const JOB_VACANC_DESCRIPTION_RECORD_VALIDATOR = Symbol.for('IBaseTableModelValidator<IJobVacancyDescriptionRecord>');
 export const CONTACT_VALIDATOR = Symbol.for('IBaseTableModelValidator<IContact>');
 // export const COMPANY_INFO_VALIDATOR = Symbol.for('IBaseTableModelValidator<ICompanyInfo>');
 

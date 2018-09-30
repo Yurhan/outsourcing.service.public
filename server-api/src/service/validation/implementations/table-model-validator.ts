@@ -129,6 +129,23 @@ export class JobVacancyValidator extends BaseTableModelValidator<IJobVacancy, Jo
   }
 }
 
+import { IJobVacancyDescriptionRecord } from '../../../models';
+
+class JobVacancyDescriptionRecordConstraints {
+  id = IntegerConstraints;
+  jobVacancy = IntegerConstraints;
+};
+
+@injectable()
+export class JobVacancyDescriptionRecordValidator extends BaseTableModelValidator<IJobVacancyDescriptionRecord, JobVacancyDescriptionRecordConstraints, JobVacancyDescriptionRecordConstraints, JobVacancyDescriptionRecordConstraints, JobVacancyDescriptionRecordConstraints> {
+  public constructor(
+    @inject(Symbol.for('ILoggerFactory')) loggerFactory: ILoggerFactory
+  ) {
+    let constraints = new JobVacancyDescriptionRecordConstraints();
+    super(loggerFactory.getLogger('services.JobVacancyDescriptionRecordValidator'), constraints, constraints, constraints, constraints);
+  }
+}
+
 
 import { ICompanyInfo } from '../../../models';
 

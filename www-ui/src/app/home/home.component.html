@@ -48,10 +48,17 @@
     </page-layout>
 
     <page-layout id="job-vacancies" class="job-vacancies-conteiner" title="ВАКАНСІЇ">
-      <div *ngFor="let item of companyInfo.jobVacancies" class="job-vacancy">
-        <span class="name">{{item.name}}</span>
-        <span class="description">{{item.description}}</span>
-        <span>{{item.gender}}</span>
+      <div *ngFor="let item of groupedVacancies" class="job-vacancy">
+        <span class="name">{{item.title}}</span>
+        <div *ngFor="let vacancy of item.vacancies">
+          <span class="name">{{vacancy.name}}</span>
+          <div *ngFor="let groupedItem of vacancy.groupedDescription">
+            <span class="name">{{groupedItem.title}}</span>
+            <ul *ngFor="let descriptionRecord of groupedItem.descriptionRecords">
+              <li>{{descriptionRecord}}</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </page-layout>
 

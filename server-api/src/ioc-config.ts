@@ -30,7 +30,8 @@ import {
   ICompanyPartner,
   ICompanyServices,
   IJobVacancy,
-  IContact
+  IContact,
+  IJobVacancyDescriptionRecord
 } from './models';
 
 //VALIDATION
@@ -41,6 +42,7 @@ import {
   CompanyPartnerValidator,
   CompanyServicesValidator,
   JobVacancyValidator,
+  JobVacancyDescriptionRecordValidator,
   ContactValidator
 } from './service/validation';
 
@@ -48,6 +50,7 @@ kernel.bind<IBaseTableModelValidator<ICompanyInfo>>(TYPES.COMPANY_INFO_VALIDATOR
 kernel.bind<IBaseTableModelValidator<ICompanyPartner>>(TYPES.COMPANY_PARTNER_VALIDATOR).to(CompanyPartnerValidator).inSingletonScope;
 kernel.bind<IBaseTableModelValidator<ICompanyServices>>(TYPES.COMPANY_SERVICES_VALIDATOR).to(CompanyServicesValidator).inSingletonScope;
 kernel.bind<IBaseTableModelValidator<IJobVacancy>>(TYPES.JOB_VACANCY_VALIDATOR).to(JobVacancyValidator).inSingletonScope;
+kernel.bind<IBaseTableModelValidator<IJobVacancyDescriptionRecord>>(TYPES.JOB_VACANC_DESCRIPTION_RECORD_VALIDATOR).to(JobVacancyDescriptionRecordValidator).inSingletonScope;
 kernel.bind<IBaseTableModelValidator<IContact>>(TYPES.CONTACT_VALIDATOR).to(ContactValidator).inSingletonScope;
 
 import {
@@ -60,7 +63,8 @@ import {
   SqlJobVacancyQueryBuilder,
   SqlUserQueryBuilder,
   ISqlUserQueryBuilder,
-  SqlContactQueryBuilder
+  SqlContactQueryBuilder,
+  SqlJobVacancyDescriptionRecordQueryBuilder
 } from './service/sql-building';
 
 kernel.bind<IQueryValueEscaper>(TYPES.QUERY_VALUE_ESCAPER).to(PgQueryValueEscaper).inSingletonScope;
@@ -68,6 +72,7 @@ kernel.bind<ISqlTableQueryBuilder<ICompanyInfo>>(TYPES.COMPANY_INFO_QUERY_BUILDE
 kernel.bind<ISqlTableQueryBuilder<ICompanyPartner>>(TYPES.COMPANY_PARTNER_QUERY_BUILDER).to(SqlCompanyPartnerQueryBuilder).inSingletonScope;
 kernel.bind<ISqlTableQueryBuilder<ICompanyServices>>(TYPES.COMPANY_SERVICES_QUERY_BUILDER).to(SqlCompanyServicesQueryBuilder).inSingletonScope;
 kernel.bind<ISqlTableQueryBuilder<IJobVacancy>>(TYPES.JOB_VACANCY_QUERY_BUILDER).to(SqlJobVacancyQueryBuilder).inSingletonScope;
+kernel.bind<ISqlTableQueryBuilder<IJobVacancyDescriptionRecord>>(TYPES.JOB_VACANCY_DESCRIPTION_RECORD_QUERY_BUILDER).to(SqlJobVacancyDescriptionRecordQueryBuilder).inSingletonScope;
 kernel.bind<ISqlTableQueryBuilder<IContact>>(TYPES.CONTACT_QUERY_BUILDER).to(SqlContactQueryBuilder).inSingletonScope;
 kernel.bind<ISqlUserQueryBuilder>(TYPES.USER_QUERY_BUILDER).to(SqlUserQueryBuilder).inSingletonScope;
 

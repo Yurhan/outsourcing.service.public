@@ -15,14 +15,15 @@ exports.setup = function (options, seedLink) {
 };
 
 const sqlUp = `
-  ALTER TABLE contact
-  ADD COLUMN ceo_name varchar(256);
+  CREATE TABLE job_vacancy_description_record (
+    "id"       SERIAL PRIMARY KEY,
+    "job_vacancy" INTEGER,
+    "type" varchar(40),
+    description  varchar(1024) NULL
+  );
 
-  UPDATE contact
-  SET ceo_name='Квасниця Роман Петрович';
-
-  ALTER TABLE contact
-  ALTER COLUMN ceo_name SET NOT NULL;
+  ALTER TABLE job_vacancy_description_record
+  ADD CONSTRAINT FK_job_vacancy_description_record FOREIGN KEY (job_vacancy) REFERENCES jobVacancy (id);
 `;
 
 exports.up = function (db) {
@@ -31,8 +32,7 @@ exports.up = function (db) {
 
 
 const sqlDown = `
-  ALTER TABLE contact
-  DROP COLUMN IF EXISTS ceo_name;
+DROP TABLE job_vacancy_description_record;
 `;
 
 exports.down = function (db) {

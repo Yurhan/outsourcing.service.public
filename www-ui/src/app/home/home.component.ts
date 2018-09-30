@@ -6,6 +6,55 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs';
 import { IContact } from '../../models/contact';
 
+import { DescriptionType, Gender, IJobVacancy } from '../../models/job-vacancy';
+
+
+function groupeBy<T, K>(list: T[], groupeBySelector: (key: T) => K): { key: K, values: T[] }[] {
+
+  let res: any[] = [];
+
+  list.forEach(x => {
+    let key: any = groupeBySelector(x);
+   
+    let item = res.find(y => y.key === key);
+    if (!item) {
+      item = { key: key, values: []};
+      res.push(item);
+    }
+    item.values.push(x);
+  });
+
+  console.log('Grouped');
+  console.log(res);
+
+  return res;
+}
+
+const GenderMap = {
+  'Man': 'Вакансії для чоловіків',
+  'Woman': 'Вакансії для жінок'
+};
+
+const DescriptionMap = {
+  'Requirements': 'Основні вимоги',
+  'Responsibilities': `Обов'язки`
+}
+
+interface IGroupedJobVcancies {
+  title: string;
+  gender: Gender;
+  vacancies: {
+    name: string;
+    groupedDescription?: IGroupedDescription[];
+  }[];
+}
+
+interface IGroupedDescription {
+  title: string;
+  type: DescriptionType;
+  descriptionRecords: string[];
+}
+
 @Component({
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
@@ -15,6 +64,7 @@ export class HomeComponent implements AfterViewInit {
   public companyInfo: ICompanyDetailedInfo;
   public contact: IContact;
   private routeSub: Subscription;
+  public groupedVacancies: IGroupedJobVcancies[];
 
   constructor(
     private comapnyInfoApi: CompanyInfoService,
@@ -30,9 +80,14 @@ export class HomeComponent implements AfterViewInit {
         .subscribe(companyInfo => {
           this.companyInfo = companyInfo;
           this.contact = this.companyInfo.contact;
+          console.log('HERE');
+          this.groupedVacancies = this.groupeVacancies(this.companyInfo.jobVacancies);
+          console.log(this.groupedVacancies);
         });
     });
   }
+
+
 
   public formatPhoneNumbers(phones: string[]): string {
     if (phones && phones.length > 0) {
@@ -43,5 +98,26 @@ export class HomeComponent implements AfterViewInit {
 
   public showMobPhones(): boolean {
     return this.contact && this.contact.mobPhones && this.contact.mobPhones.length > 0;
+  }
+
+  private groupeVacancies(jobVacancies: IJobVacancy[]): IGroupedJobVcancies[] {
+    if (jobVacancies) {
+      
+      return groupeBy(jobVacancies, x => x.gender)
+       .map(x => ({
+         gender: x.key,
+         title: GenderMap[x.key],
+         vacancies: x.values.map(v => ({
+           name: v.name,
+           groupedDescription: groupeBy(v.descriptionRecords, rec => rec.type)
+             .map(rec => ({
+               title: DescriptionMap[rec.key],
+               type: rec.key,
+               descriptionRecords: rec.values.map(r => r.description)
+             }))
+         }))
+       }));
+    }
+    return [];
   }
 }

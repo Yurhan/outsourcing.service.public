@@ -195,6 +195,32 @@ export class JobVacancyService extends BaseDataService<IJobVacancy> {
   }
 }
 
+
+/// JOB VACANCY SERVICE
+import {
+  IJobVacancyDescriptionRecord
+} from '../../../models';
+
+export class JobVacancyDescriptionRecordService extends BaseDataService<IJobVacancyDescriptionRecord> {
+  constructor(
+    @inject(Symbol.for('IQueryableProvider')) queryableProvider: IQueryableProvider,
+    @inject(Symbol.for('ISqlTableQueryBuilder<IJobVacancyDescriptionRecord>')) queryBuilder: ISqlTableQueryBuilder<IJobVacancyDescriptionRecord>,
+    @inject(Symbol.for('IBaseTableModelValidator<IJobVacancyDescriptionRecord>')) validator: IBaseTableModelValidator<IJobVacancyDescriptionRecord>,
+  ) {
+    super(queryableProvider, queryBuilder, validator);
+  }
+
+  protected convertDbRawtoResModel(recData: any): IJobVacancyDescriptionRecord {
+    let res: IJobVacancyDescriptionRecord = {
+      id: recData.id,
+      jobVacancyId: recData.job_vacancy,
+      type: recData.type,
+      description: recData.description
+    }
+    return res;
+  }
+}
+
 /// HOME PAGE INFO SERVICE
 import {
   ICompanyInfo

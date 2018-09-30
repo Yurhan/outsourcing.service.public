@@ -9,10 +9,11 @@ import {
   IJobVacancy,
   ICompanyDetailedInfo,
   IContact,
-  IPicture
+  IPicture,
+  IJobVacancyDescriptionRecord
 } from '../../models';
 import * as TYPES from '../../types';
-import { IPictureService } from '../../service';
+// import { IPictureService } from '../../service';
 // import { NotFoundError } from '../../common';
 
 export function getCompanyDetailedInfoRouteHandler(req: IAppRequest, res: IJsonResponse): void {
@@ -23,19 +24,28 @@ export function getCompanyDetailedInfoRouteHandler(req: IAppRequest, res: IJsonR
   let companyServicesService = req.kernel.get<IDataService<ICompanyServices>>(TYPES.COMPANY_SERVICES_SERVICE);
   let jobVacancyservice = req.kernel.get<IDataService<IJobVacancy>>(TYPES.JOB_VACANSY_SERVICE);
   let contactService = req.kernel.get<IDataService<IContact>>(TYPES.CONTACT_SERVICE);
+  let jobVacancyDescRecordService = req.kernel.get<IDataService<IJobVacancyDescriptionRecord>>(TYPES.JOB_VACANCY_DESCRIPTION_RECORD_SERVICE);
 
   res.jsonPromise(
-    Promise.all([
+    Promise.all<any>([
       companyInfoservice.getAll(),
       companyPartnerservice.getAll(),
       companyServicesService.getAll(),
       jobVacancyservice.getAll(),
       contactService.getAll(),
+      jobVacancyDescRecordService.getAll()
     ])
-      .then(([info, partners, services, vacancies, contacts]) => {
+      .then(([info, partners, services, vacancies, contacts, jobDescriptions]) => {
         // if (!info) {
         //   throw new NotFoundError('Company Info');
         // }
+
+        if (vacancies && jobDescriptions) {
+          vacancies.forEach((v: any) => {
+            v.descriptionRecords = jobDescriptions.filter((dec: any) => dec.jobVacancyId === v.id);
+          });
+        }
+
         return {
           ...info[0],
           partners: partners,

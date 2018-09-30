@@ -32,14 +32,16 @@ import {
   JobVacancyService,
   ContactService,
   IPictureService,
-  PictureService
+  PictureService,
+  JobVacancyDescriptionRecordService
 } from './service';
 import {
   ICompanyInfo,
   ICompanyPartner,
   ICompanyServices,
   IJobVacancy,
-  IContact
+  IContact,
+  IJobVacancyDescriptionRecord
 } from './models';
 
 function bindServices(kernel: Kernel): void {
@@ -48,6 +50,7 @@ function bindServices(kernel: Kernel): void {
   kernel.bind<IDataService<ICompanyPartner>>(TYPES.COMPANY_PARTNER_SERVICE).to(CompanyPartnerService);
   kernel.bind<IDataService<ICompanyServices>>(TYPES.COMPANY_SERVICES_SERVICE).to(CompanyServicesService);
   kernel.bind<IDataService<IJobVacancy>>(TYPES.JOB_VACANSY_SERVICE).to(JobVacancyService);
+  kernel.bind<IDataService<IJobVacancyDescriptionRecord>>(TYPES.JOB_VACANCY_DESCRIPTION_RECORD_SERVICE).to(JobVacancyDescriptionRecordService);
   kernel.bind<IDataService<IContact>>(TYPES.CONTACT_SERVICE).to(ContactService);
   kernel.bind<IPictureService>(TYPES.PICTURE_SERVICE).to(PictureService);
 }
