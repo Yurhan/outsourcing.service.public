@@ -30,6 +30,20 @@
   }
 }
 
+.job-vacancy {
+  text-align: left;
+  margin-left: 30px;
+  .grouped-vacancies {
+    margin-left: 20px;
+    .grouped-description {
+      margin-left: 20px;
+      .description-list {
+        margin-left: 20px;
+      }
+    }
+  }
+}
+
 .company-title-container {
   min-height: 800px;
   background: url(/static/home.jpg) 50% 25% no-repeat;
