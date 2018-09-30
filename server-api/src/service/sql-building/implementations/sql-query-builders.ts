@@ -106,6 +106,7 @@ import { IContact } from '../../../models';
   street: rec => rec.address ? rec.address.street : null,
   primaryPhone: rec => rec.primaryPhone,
   mobPhones: rec => rec.mobPhones ? rec.mobPhones.join(',') : null,
+  ceoName: rec => (<any>rec).ceo_name,
 })
 export class SqlContactQueryBuilder extends SqlTableQueryBuilder<IContact> {
   constructor(

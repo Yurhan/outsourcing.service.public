@@ -8,4 +8,5 @@ export interface IContact {
   address: IAddress;
   primaryPhone: string;
   mobPhones: string[];
+  ceoName: string;
 }

@@ -238,7 +238,8 @@ export class ContactService extends BaseDataService<IContact> {
     let res: IContact = {
       id: recData.id,
       primaryPhone: recData.primaryphone,
-      mobPhones: []
+      mobPhones: [],
+      ceoName: recData.ceo_name,
     };
     if (recData.city || recData.street) {
       res.address = {
@@ -249,6 +250,7 @@ export class ContactService extends BaseDataService<IContact> {
     if (recData.mobphones && recData.mobphones.trim() !== '') {
       res.mobPhones = recData.mobphones.split(',');
     }
+
     return res;
   }
 }

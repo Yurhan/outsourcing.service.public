@@ -70,6 +70,7 @@
             вул. {{contact.address.street}}</span>
           <span *ngIf="contact.primaryPhone" class="text">Тел. {{contact.primaryPhone}}</span>
           <span *ngIf="showMobPhones()" class="text">Моб. {{formatPhoneNumbers(contact.mobPhones)}}</span>
+          <span class="text">Головний деректор {{contact.ceoName}}</span>
         </div>
         <google-map *ngIf="contact" [address]="contact.address" style="display: inline-block;"></google-map>
       </div>
