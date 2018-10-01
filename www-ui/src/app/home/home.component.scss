@@ -44,6 +44,25 @@
   }
 }
 
+.about-conteiner{
+  .about {
+    padding-bottom: 0px;
+    margin-top: 10px;
+    vertical-align: top;
+    background-color: rgba(247, 247, 247, 1);
+    .description  {
+      margin-bottom: 0px;
+      text-align: left;
+      margin-right: 100px;
+      display: inline-block;
+      vertical-align: top;
+    }
+    img {
+      display: inline-block;
+    }
+  }
+}
+
 .company-title-container {
   min-height: 800px;
   background: url(/static/home.jpg) 50% 25% no-repeat;
@@ -81,14 +100,28 @@
   }
 }
 
+
 .services-conteiner {
   .service {
+    width: 300px;
+    text-align: left;
     display: inline-block;
-    margin: 10px;
+    margin: 30px;
     background-color: rgba(247, 247, 247, 1);
+    vertical-align: top;
     .text {
       font: normal normal normal 15px/1.4em helvetica-w01-light,helvetica-w02-light,sans-serif;
       color: #3B3A3A;
+    }
+    .text-container {
+      min-height: 250px;
+      margin: 10px;
+      .description {
+        display: block;
+      }
+      .name {
+        display: block;
+      }
     }
   }
 }

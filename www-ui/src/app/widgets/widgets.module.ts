@@ -9,6 +9,8 @@ import { MenuButtonComponent } from './menu-button/menu-button.component';
 import { PageLayoutComponent } from './page-layout/page-layout.component';
 import { GoogleMapComponent } from './google-map/google-map.component';
 
+import { SlidePanelComponent } from './slide-panel/slide-panel.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -22,13 +24,15 @@ import { GoogleMapComponent } from './google-map/google-map.component';
     MenuButtonComponent,
     HeaderComponent,
     PageLayoutComponent,
-    GoogleMapComponent
+    GoogleMapComponent,
+    SlidePanelComponent
   ],
   exports: [
     MenuButtonComponent,
     HeaderComponent,
     PageLayoutComponent,
-    GoogleMapComponent
+    GoogleMapComponent,
+    SlidePanelComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

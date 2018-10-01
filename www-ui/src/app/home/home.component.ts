@@ -1,7 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyInfoService } from '../../services/apis';
-import { ICompanyDetailedInfo } from '../../models';
+import { ICompanyDetailedInfo, ICompanyServices } from '../../models';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs';
 import { IContact } from '../../models/contact';
@@ -17,7 +17,7 @@ function groupeBy<T, K>(list: T[], groupeBySelector: (key: T) => K): { key: K, v
     let key: any = groupeBySelector(x);
     let item = res.find(y => y.key === key);
     if (!item) {
-      item = { key: key, values: []};
+      item = { key: key, values: [] };
       res.push(item);
     }
     item.values.push(x);
@@ -65,6 +65,20 @@ export class HomeComponent implements AfterViewInit {
   private routeSub: Subscription;
   public groupedVacancies: IGroupedJobVcancies[];
 
+  public about = {
+    description: `
+    Наші компанії представлені на ринку аутсорсингових та рекрутингових послуг починаючи
+    з 2004 року. З того часу, серед наших партнерів, були (або є) такі підприємства:
+      *  ПАТ Світоч,
+      *  ТзОВ Нестле-Україна,
+      *  ТОВ ТВК Перша Приватна Броварня,
+      *  ПрАТ ВолиньХолддинг (Торчин-продукт),
+      *  ТзОВ Kabel Werk Львів, ПрАТ Карлсбертг Україна (Львівська Пивоварня),
+      *  ТОВ Кондитерська фабрика «Ярич», ТОВ Castrol Україна,
+      *  ВАТ Радехівський цукровий завод та ін.`,
+    imageAddress: '/static/about.jpg'
+  };
+
   constructor(
     private comapnyInfoApi: CompanyInfoService,
     private route: ActivatedRoute,
@@ -95,6 +109,11 @@ export class HomeComponent implements AfterViewInit {
     return '';
   }
 
+  public getServiceImgAddress(service: ICompanyServices): string {
+    const serviceIndex = this.companyInfo.services.findIndex(s => s.id === service.id);
+    return `/static/service_${serviceIndex + 1}.jpg`;
+  }
+
   public showMobPhones(): boolean {
     return this.contact && this.contact.mobPhones && this.contact.mobPhones.length > 0;
   }
@@ -103,19 +122,19 @@ export class HomeComponent implements AfterViewInit {
     if (jobVacancies) {
 
       return groupeBy(jobVacancies, x => x.gender)
-       .map(x => ({
-         gender: x.key,
-         title: GenderMap[x.key],
-         vacancies: x.values.map(v => ({
-           name: v.name,
-           groupedDescription: groupeBy(v.descriptionRecords, rec => rec.type)
-             .map(rec => ({
-               title: DescriptionMap[rec.key],
-               type: rec.key,
-               descriptionRecords: rec.values.map(r => r.description)
-             }))
-         }))
-       }));
+        .map(x => ({
+          gender: x.key,
+          title: GenderMap[x.key],
+          vacancies: x.values.map(v => ({
+            name: v.name,
+            groupedDescription: groupeBy(v.descriptionRecords, rec => rec.type)
+              .map(rec => ({
+                title: DescriptionMap[rec.key],
+                type: rec.key,
+                descriptionRecords: rec.values.map(r => r.description)
+              }))
+          }))
+        }));
     }
     return [];
   }

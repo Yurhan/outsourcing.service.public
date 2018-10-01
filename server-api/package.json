@@ -19,6 +19,7 @@
     "compile": "gulp compile",
     "start": "gulp run",
     "test": "gulp test",
+    "migrate:create": "db-migrate create",
     "migrate": "db-migrate up",
     "restore_pictures": "gulp restore_pictures"
   },

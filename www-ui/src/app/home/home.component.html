@@ -26,24 +26,20 @@
     </div>
 
     <page-layout id="about" class="about-conteiner" title="ПРО НАС">
-      <div>
-        <span class="description">
+      <div class="about">
+        <div class="description">
           <pre class="description">
-          Наші компанії представлені на ринку аутсорсингових та рекрутингових послуг починаючи
-          з 2004 року. З того часу, серед наших партнерів, були (або є) такі підприємства:
-          ПАТ Світоч, ТзОВ Нестле-Україна, ТОВ ТВК Перша Приватна Броварня, ПрАТ
-          ВолиньХолддинг (Торчин-продукт), ТзОВ Kabel Werk Львів, ПрАТ Карлсбертг
-          Україна (Львівська Пивоварня), ТОВ Кондитерська фабрика «Ярич», ТОВ Castrol
-          Україна, ВАТ Радехівський цукровий завод та ін.
+            {{about.description}}
           </pre>
-        </span>
+        </div>
+        <img [src]="about.imageAddress" height="300" width="400" />
       </div>
     </page-layout>
 
     <page-layout id="partners" class="partners-conteiner" title="ПАРТНЕРИ">
       <div *ngFor="let item of companyInfo.partners" class="partner">
-        <img *ngIf="item.imageAddress" [src]="item.imageAddress" height="128" width="200"
-        />
+        <img *ngIf="item.imageAddress" [src]="item.imageAddress" height="128"
+          width="200" />
       </div>
     </page-layout>
 
@@ -54,7 +50,8 @@
           <span class="name">{{vacancy.name}}</span>
           <div *ngFor="let groupedItem of vacancy.groupedDescription" class="grouped-description">
             <h4>{{groupedItem.title}}</h4>
-            <ul *ngFor="let descriptionRecord of groupedItem.descriptionRecords" class="description-list">
+            <ul *ngFor="let descriptionRecord of groupedItem.descriptionRecords"
+              class="description-list">
               <li>{{descriptionRecord}}</li>
             </ul>
           </div>
@@ -64,19 +61,25 @@
 
     <page-layout id="services" class="services-conteiner" title="ПОСЛУГИ">
       <div *ngFor="let item of companyInfo.services" class="service">
-        <span class="name">{{item.name}}</span>
-        <span class="description">{{item.description}}</span>
+        <img [src]="getServiceImgAddress(item)" height="200" width="300" />
+        <div class="text-container">
+          <span class="name">{{item.name}}</span>
+          <span class="description">{{item.description}}</span>
+        </div>
       </div>
     </page-layout>
 
     <page-layout id="contacts" class="contacts-conteiner" title="КОНТАКТИ">
       <div>
-        <div *ngIf="contact" class="text-container" style="display: inline-block;">
+        <div *ngIf="contact" class="text-container" style="display: inline-block; margin-right: 100px;">
           <span class="text-title">Головний Офіс</span>
-          <span *ngIf="contact.address" class="text">Адреса: м. {{contact.address.city}},
+          <span *ngIf="contact.address" class="text">Адреса: м.
+            {{contact.address.city}},
             вул. {{contact.address.street}}</span>
-          <span *ngIf="contact.primaryPhone" class="text">Тел. {{contact.primaryPhone}}</span>
-          <span *ngIf="showMobPhones()" class="text">Моб. {{formatPhoneNumbers(contact.mobPhones)}}</span>
+          <span *ngIf="contact.primaryPhone" class="text">Тел.
+            {{contact.primaryPhone}}</span>
+          <span *ngIf="showMobPhones()" class="text">Моб.
+            {{formatPhoneNumbers(contact.mobPhones)}}</span>
           <span class="text">Головний деректор {{contact.ceoName}}</span>
         </div>
         <google-map *ngIf="contact" [address]="contact.address" style="display: inline-block;"></google-map>
