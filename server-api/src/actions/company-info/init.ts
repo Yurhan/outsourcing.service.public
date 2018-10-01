@@ -59,6 +59,7 @@ export function init(app: express.Application) {
    *         description: Returns Detailed CompanyInfo  object
    */
   app.post('/company-info/details',
+    getAuthRequestHandler(),
     (req: IAppRequest, res: IJsonResponse) => {
       submitCompanyDetailedInfoHanlder.submitCompanyDetailedInfoRouteHandler(req, res);
     });
