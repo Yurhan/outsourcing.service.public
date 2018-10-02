@@ -1,0 +1,67 @@
+<modal title="{{title}}" [isOpen]="isEditing" (closed)="isEditing = false;">
+  <form (submit)="submit(editTimerCategory.value)" class="edit-modal">
+    <p class="fieldset">
+      <input name="minutes" type="number" [(ngModel)]="editingTimer.minutesDuration"
+        min="0" required (keypress)="preventSubmitByEnter($event)" (keyup)="preventSubmitByEnter($event)">
+      min :
+      <input name="seconds" type="number" [(ngModel)]="editingTimer.secondsDuration"
+        min="0" max="59" required (keypress)="preventSubmitByEnter($event)"
+        (keyup)="preventSubmitByEnter($event)"> sec
+    </p>
+    <p class="fieldset">
+      <input class="w-100" name="time" #modalDateTime type="datetime-local"
+        ([ngModel])="editingTimer.startedTime" step=1 required (keypress)="preventSubmitByEnter($event)"
+        (keyup)="preventSubmitByEnter($event)">
+    </p>
+    <p class="fieldset">
+      <select name="category" #editTimerCategory ([ngModel])="editingTimer.category"
+        class="category-select w-100">
+        <option *ngFor="let c of categories" [value]="c.id" [selected]="c.id == editingTimer.category">{{c.value}}</option>
+      </select>
+    </p>
+    <p class="fieldset">
+      <textarea name="text" [(ngModel)]="editingTimer.text" placeholder="Notes"
+        required></textarea>
+    </p>
+    <p class="fieldset">
+      <button type="submit" class="btn-success">Зберегти</button>
+      <button type="button" class="btn-alert" (click)="cancle()">Скасувати</button>
+    </p>
+  </form>
+</modal>
+
+<div>
+  <h1>{{title.toUpperCase()}}</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Назва</th>
+        <th>Опис</th>
+        <th>Картинка</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of companyInfo.partners;">
+        <td>
+          <span>{{item.name}}</span>
+        </td>
+        <td>
+          <span>{{item.description}}</span>
+        </td>
+        <td *ngIf="item.imageAddress">
+          <img [src]="item.imageAddress" height="42" width="42" />
+        </td>
+        <td>
+          <input type="file" (change)="pictureChange($event, item)" placeholder="Загрузити картинку"
+            accept=".png,.jpg" name="fileName" />
+        </td>
+        <td>
+          <button type="button" (click)="update(item.id)">Редагувати</button>
+          <button type="button" (click)="remove(item.id)">Видалити</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button type="button" (click)="add()">Додати</button>
+</div>

@@ -1,0 +1,18 @@
+<div class="header">
+</div>
+
+<h1>ГОЛОВНА</h1>
+<div *ngIf="companyInfo">
+  <form (ngSubmit)="submit()">
+    <div>
+      <label>Під тайтл сторінки</label>
+      <input id="sub-title" [(ngModel)]="companyInfo.subTitle" [ngModelOptions]="{standalone: true}"
+        placeholder="
+        sub-title " type="text " />
+      <label>Тайтл сторінки</label>
+      <input id="title" [(ngModel)]="companyInfo.title" [ngModelOptions]="{standalone: true}"
+        placeholder="title" type="text" />
+    </div>
+    <button type="submit">Зберегти</button>
+  </form>
+</div>

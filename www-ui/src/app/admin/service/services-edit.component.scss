@@ -1,0 +1,24 @@
+
+.header {
+  display: inline-block;
+  background-color: rgba(30, 45, 59, 1);
+  width: 100%;
+
+  .nav-menu-conteiner,.header-separetor,.sub-title {
+    display: inline-block;
+  }
+  .sub-title {
+    margin: 0px auto;
+    background-color: rgba(237, 205, 31, 1);
+  }
+  .header-separetor{
+    width: 1280px;
+  }
+
+  nav {
+    ul {
+      list-style: none;
+      display: inline-block;
+    }
+  }
+}

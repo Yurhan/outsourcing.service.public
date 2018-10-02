@@ -46,6 +46,23 @@
     <page-layout id="job-vacancies" class="job-vacancies-conteiner" title="ВАКАНСІЇ">
       <div *ngFor="let item of groupedVacancies" class="job-vacancy">
         <h2>{{item.title}}</h2>
+        <div *ngIf="item.vacancies.length > 0">
+          <div *ngFor="let vacancy of item.vacancies" class="grouped-vacancies">
+            <slide-panel [title]="vacancy.name">
+              <div *ngFor="let groupedItem of vacancy.groupedDescription" class="grouped-description">
+                <h4>{{groupedItem.title}}</h4>
+                <ul *ngFor="let descriptionRecord of groupedItem.descriptionRecords"
+                  class="description-list">
+                  <li>{{descriptionRecord}}</li>
+                </ul>
+              </div>
+            </slide-panel>
+          </div>
+        </div>
+        <div *ngIf="item.vacancies.length === 0" class="job-vacancies">
+          <span class="description">Вільних вакансій не має в наявності!</span>
+        </div>
+        <!-- <h2>{{item.title}}</h2>
         <div *ngFor="let vacancy of item.vacancies" class="grouped-vacancies">
           <span class="name">{{vacancy.name}}</span>
           <div *ngFor="let groupedItem of vacancy.groupedDescription" class="grouped-description">
@@ -55,7 +72,7 @@
               <li>{{descriptionRecord}}</li>
             </ul>
           </div>
-        </div>
+        </div> -->
       </div>
     </page-layout>
 

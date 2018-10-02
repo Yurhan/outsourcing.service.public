@@ -9,6 +9,7 @@ import { MenuButtonComponent } from './menu-button/menu-button.component';
 import { PageLayoutComponent } from './page-layout/page-layout.component';
 import { GoogleMapComponent } from './google-map/google-map.component';
 
+import { ModalComponent } from './modal/modal.component';
 import { SlidePanelComponent } from './slide-panel/slide-panel.component';
 
 @NgModule({
@@ -25,14 +26,16 @@ import { SlidePanelComponent } from './slide-panel/slide-panel.component';
     HeaderComponent,
     PageLayoutComponent,
     GoogleMapComponent,
-    SlidePanelComponent
+    SlidePanelComponent,
+    ModalComponent
   ],
   exports: [
     MenuButtonComponent,
     HeaderComponent,
     PageLayoutComponent,
     GoogleMapComponent,
-    SlidePanelComponent
+    SlidePanelComponent,
+    ModalComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

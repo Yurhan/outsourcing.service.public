@@ -10,3 +10,17 @@
 .slider.closed {
   max-height: 0;
 }
+
+.panel-title {
+  .title {
+    padding: 0px;
+    margin: 0px;
+    line-height: 1.1em;
+    font: normal normal normal 22px/1.4em avenir-lt-w01_85-heavy1475544,sans-serif;
+    color: #3D5975;
+  }
+}
+
+.panel-content {
+  background-color: rgba(247, 247, 247, 1);
+}

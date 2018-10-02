@@ -5,4 +5,7 @@ export interface IApiBaseService<TData> {
   update(list: TData[]): Observable<void>;
   delete(id: number): Observable<void>;
   getList(): Observable<TData[]>;
+
+  createOne(data: TData): Observable<void>;
+  updateOne(data: TData): Observable<void>;
 }

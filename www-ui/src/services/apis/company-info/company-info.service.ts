@@ -12,6 +12,10 @@ export class CompanyInfoService extends ApiBaseService<ICompanyInfo> implements 
     super(http, 'company-info');
   }
 
+  public getInfo(): Observable<ICompanyInfo | undefined> {
+    return this.getList().map(list => list[0]);
+  }
+
   public getDetailed(): Observable<ICompanyDetailedInfo> {
     return this.http.get(`/api/${this.relatedRoute}/details`)
       .map(response => response.json().data);

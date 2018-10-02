@@ -29,4 +29,16 @@ export class ApiBaseService<TData> implements IApiBaseService<TData> {
     return this.http.get(`/api/${this.relatedRoute}`)
       .map(response => <TData[]>response.json().data);
   }
+
+  public createOne(data: TData): Observable<void> {
+    return this.create([data]);
+  }
+
+  public updateOne(data: TData): Observable<void> {
+    return this.update([data]);
+  }
+
+  public submitOne(data: TData): Observable<void> {
+    return (<any>data).id ? this.updateOne(data) : this.createOne(data);
+  }
 }
