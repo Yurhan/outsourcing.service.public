@@ -13,3 +13,5 @@ export * from './goolge-map/google-map.service.d';
 
 export * from './picture/picture.service';
 export * from './picture/picture.service.d';
+
+export * from './contact/contact.service';

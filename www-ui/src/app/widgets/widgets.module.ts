@@ -11,6 +11,7 @@ import { GoogleMapComponent } from './google-map/google-map.component';
 
 import { ModalComponent } from './modal/modal.component';
 import { SlidePanelComponent } from './slide-panel/slide-panel.component';
+import { TableEditorComponent } from './table-editor/table-editor.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { SlidePanelComponent } from './slide-panel/slide-panel.component';
     PageLayoutComponent,
     GoogleMapComponent,
     SlidePanelComponent,
-    ModalComponent
+    ModalComponent,
+    TableEditorComponent
   ],
   exports: [
     MenuButtonComponent,
@@ -35,7 +37,8 @@ import { SlidePanelComponent } from './slide-panel/slide-panel.component';
     PageLayoutComponent,
     GoogleMapComponent,
     SlidePanelComponent,
-    ModalComponent
+    ModalComponent,
+    TableEditorComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

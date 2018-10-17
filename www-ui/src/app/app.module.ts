@@ -28,7 +28,8 @@ import {
   JobVacancyService,
   UserService,
   GoogleMapService,
-  PictureService
+  PictureService,
+  ContactService
 } from '../services/apis';
 
 @NgModule({
@@ -54,6 +55,7 @@ import {
     UserService,
     GoogleMapService,
     PictureService,
+    ContactService,
     DateTimeHelperService,
     {
       provide: Http,

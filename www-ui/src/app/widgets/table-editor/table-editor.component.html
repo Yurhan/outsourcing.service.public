@@ -1,4 +1,4 @@
-<modal title="{{title}}" [isOpen]="isEditing" (closed)="isEditing = false;">
+<modal title="title" [isOpen]="isEditing" (closed)="isEditing = false;">
   <form (submit)="submit(editTimerCategory.value)" class="edit-modal">
     <p class="fieldset">
       <input name="minutes" type="number" [(ngModel)]="editingTimer.minutesDuration"
@@ -35,26 +35,24 @@
   <table>
     <thead>
       <tr>
-        <th>Назва</th>
-        <th>Опис</th>
-        <th>Картинка</th>
+        <th *ngFor="let column of columnsMeta;">
+          {{column.title}}
+        </th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of companyInfo.partners;">
-        <td>
-          <span>{{item.name}}</span>
-        </td>
-        <td>
-          <span>{{item.description}}</span>
-        </td>
-        <td *ngIf="item.imageAddress">
-          <img [src]="item.imageAddress" height="42" width="42" />
-        </td>
-        <td>
-          <input type="file" (change)="pictureChange($event, item)" placeholder="Загрузити картинку"
-            accept=".png,.jpg" name="fileName" />
+      <tr *ngFor="let item of list;">
+        <td *ngFor="let columnMeta of columnsMeta;">
+          <div *ngIF="isShortText(columnMeta) || isList(columnMeta)">
+            <span class="short-text">{{columnMeta.fieldSelector(item)}}</span>
+          </div>
+          <div *ngIF="isLongText(columnMeta)">
+            <pre class="long-text">{{columnMeta.fieldSelector(item)}}</pre>
+          </div>
+          <div *ngIF="isImage(columnMeta)">
+            <img [src]="columnMeta.fieldSelector(item)" height="42" width="42" />
+          </div>
         </td>
         <td>
           <button type="button" (click)="update(item.id)">Редагувати</button>

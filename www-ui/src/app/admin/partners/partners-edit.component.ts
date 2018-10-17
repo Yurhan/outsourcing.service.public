@@ -1,14 +1,14 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
-  CompanyInfoService,
-  PictureService
+  CompanyPartnerService // ,
+  // PictureService
 } from '../../../services/apis';
-import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs';
 
-import * as _ from 'lodash';
-import { ICompanyInfo } from '../../../models';
+import { IColumnMeta, FieldType } from '../../widgets';
+
+import { ICompanyPartner } from '../../../models';
 
 @Component({
   templateUrl: './admin.component.html',
@@ -17,37 +17,59 @@ import { ICompanyInfo } from '../../../models';
 
 export class CompanyInfoEditComponent implements AfterViewInit {
 
-  public companyInfo: ICompanyInfo;
-  private routeSub: Subscription;
+  public partners: ICompanyPartner[];
+
+  public columnsMeta: IColumnMeta[] = [{
+    title: 'Індентифікатор',
+    fieldSelector: (field: ICompanyPartner) => field.id,
+    type: FieldType.ShortText
+  }, {
+    title: 'Назва',
+    fieldSelector: (field: ICompanyPartner) => field.name,
+    type: FieldType.ShortText
+  }, {
+    title: 'Опис',
+    fieldSelector: (field: ICompanyPartner) => field.description,
+    type: FieldType.LongText
+  }, {
+    title: 'Картинка',
+    fieldSelector: (field: ICompanyPartner) => field.imageRef,
+    type: FieldType.Image
+  }];
 
   constructor(
-    private comapnyInfoApi: CompanyInfoService,
+    private partnerService: CompanyPartnerService,
+    // private pictureService: PictureService,
     private route: ActivatedRoute
   ) { }
 
   public ngAfterViewInit(): void {
     let paramsObsComb = Observable.combineLatest(this.route.params, this.route.queryParams, (params, qparams) => ({ params, qparams }));
 
-    this.routeSub = paramsObsComb.subscribe(p => {
-      this.comapnyInfoApi.getInfo()
-        .subscribe(companyInfo => {
-          this.companyInfo = companyInfo;
-          this.companyInfo.title = this.companyInfo.title || '';
-          this.companyInfo.subTitle = this.companyInfo.subTitle || '';
+    paramsObsComb.subscribe(p => {
+      this.partnerService.getList()
+        .subscribe(partners => {
+          this.partners = partners;
         });
     });
   }
 
+  public onDelete(event: any): void {
+    console.log('onDelete is invoked');
+  }
 
-  public submit(): void {
+  public onSubmit(event: any): void {
+    console.log('onSubmit is invoked');
+  }
 
-    let obs = this.companyInfo.id
-      ? this.comapnyInfoApi.createOne(this.companyInfo)
-      : this.comapnyInfoApi.updateOne(this.companyInfo)
+  public onCancle(event: any): void {
+    console.log('onCancle is invoked');
+  }
 
+  public submit(partner: ICompanyPartner): void {
+    let obs = this.partnerService.submitOne(partner);
     obs.subscribe(() => {
       console.log('Successufully submittted');
-    })
-
+    });
   }
 }

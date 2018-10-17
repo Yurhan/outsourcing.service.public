@@ -1,39 +1,33 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
-  CompanyInfoService,
-  PictureService
+  ContactService
 } from '../../../services/apis';
-import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs';
 
-import * as _ from 'lodash';
-import { ICompanyInfo } from '../../../models';
+import { IContact } from '../../../models';
 
 @Component({
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+  templateUrl: './contact-edit.component.html',
+  styleUrls: ['./contact-edit.component.scss']
 })
 
-export class CompanyInfoEditComponent implements AfterViewInit {
+export class ContactEditComponent implements AfterViewInit {
 
-  public companyInfo: ICompanyInfo;
-  private routeSub: Subscription;
+  public contact: IContact;
 
   constructor(
-    private comapnyInfoApi: CompanyInfoService,
+    private contactService: ContactService,
     private route: ActivatedRoute
   ) { }
 
   public ngAfterViewInit(): void {
     let paramsObsComb = Observable.combineLatest(this.route.params, this.route.queryParams, (params, qparams) => ({ params, qparams }));
 
-    this.routeSub = paramsObsComb.subscribe(p => {
-      this.comapnyInfoApi.getInfo()
-        .subscribe(companyInfo => {
-          this.companyInfo = companyInfo;
-          this.companyInfo.title = this.companyInfo.title || '';
-          this.companyInfo.subTitle = this.companyInfo.subTitle || '';
+    paramsObsComb.subscribe(p => {
+      this.contactService.getOne()
+        .subscribe(contact => {
+          this.contact = contact;
         });
     });
   }
@@ -41,7 +35,7 @@ export class CompanyInfoEditComponent implements AfterViewInit {
 
   public submit(): void {
 
-    this.comapnyInfoApi.submitOne(this.companyInfo)
+    this.contactService.submitOne(this.contact)
       .subscribe(() => {
         console.log('Successufully submittted');
       });
