@@ -9,7 +9,7 @@ import { IColumnMeta, FieldType } from '../models';
 
 export class TableEditorComponent implements AfterViewInit {
 
-  public editingRecord: any
+  public editingRecord: any;
 
   public isEditing = false;
 

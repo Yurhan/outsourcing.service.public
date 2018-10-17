@@ -30,9 +30,8 @@ export class JobVacancyEditComponent implements AfterViewInit {
     });
   }
 
-
   public submit(jobVacancy: IJobVacancy): void {
-    let obs = this.jobVacancyService.submitOne(jobVacancy)
+    let obs = this.jobVacancyService.submitOne(jobVacancy);
     obs.subscribe(() => {
       console.log('Successufully submittted');
     });

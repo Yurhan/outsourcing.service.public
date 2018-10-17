@@ -15,7 +15,7 @@ import { ICompanyPartner } from '../../../models';
   styleUrls: ['./admin.component.scss']
 })
 
-export class CompanyInfoEditComponent implements AfterViewInit {
+export class PatnerEditComponent implements AfterViewInit {
 
   public partners: ICompanyPartner[];
 
